@@ -4,6 +4,8 @@ import numpy as np
 import cv2
 from matplotlib import pyplot as plt
 
+from utils import sample_filepath
+
 
 def histogram_find_cuts(nbins: int) -> np.ndarray:
     """Sequence of limits of each bin (e.g. [0.0, 85.0, 170.0, 255.0] for 3 bins)."""
@@ -33,7 +35,7 @@ if __name__ == '__main__':
     test = unittest.main(module='test', defaultTest='TestLesson01Task02', exit=False)
 
     # Load the image
-    image = cv2.imread('../samples/tank.tiff')
+    image = cv2.imread(sample_filepath('tank.tiff'))
     plt.imshow(image)
     plt.show()
 

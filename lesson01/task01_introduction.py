@@ -3,9 +3,10 @@ import time
 import cv2
 from matplotlib import pyplot as plt
 
+from utils import sample_filepath
 
 # 1) Load the `mandril` image with OpenCV (see `cv2.imread(...)`)
-img = cv2.imread('../samples/mandril.tiff')
+img = cv2.imread(sample_filepath('mandril.tiff'))
 
 # 2) Find dtype, size (in pixels), and number of channels of the image (see `[img].dtype` and `[img].shape`)
 

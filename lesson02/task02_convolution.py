@@ -5,8 +5,6 @@ from matplotlib import pyplot as plt
 
 def convolution(image: np.ndarray, kernel: np.ndarray) -> np.ndarray:
     """Sequence of limits of each bin (e.g. [0.0, 85.0, 170.0, 255.0] for 3 bins)."""
-    # YOUR CODE HERE
-    # ...
     img_sz_x, img_sz_y = image.shape
     krn_sz_x, krn_sz_y = kernel.shape
     out_sz_x = img_sz_x - krn_sz_x + 1  # Why?
@@ -16,6 +14,7 @@ def convolution(image: np.ndarray, kernel: np.ndarray) -> np.ndarray:
         for j in range(out_sz_y):
             # YOUR CODE HERE
             # ...
+            pass
     return out
 
 

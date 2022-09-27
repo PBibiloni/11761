@@ -5,8 +5,6 @@ from matplotlib import pyplot as plt
 
 def convolution(image: np.ndarray, kernel: np.ndarray) -> np.ndarray:
     """Returns the convolution of one image with a specific kernel (with no padding)."""
-    # YOUR CODE HERE
-    # ...
     img_sz_x, img_sz_y = image.shape
     krn_sz_x, krn_sz_y = kernel.shape
     out_sz_x = img_sz_x - krn_sz_x + 1  # Why?

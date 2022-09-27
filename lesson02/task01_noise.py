@@ -5,22 +5,16 @@ from matplotlib import pyplot as plt
 
 def additive_white_gaussian_noise(image: np.ndarray, std: float) -> np.ndarray:
     """Adds additive white Gaussian noise to an image."""
-    # YOUR CODE HERE: see `np.random.normal(...)`
-    # ...
     return image + np.random.normal(0, std, image.shape)
 
 
 def uniform_multiplicative_noise(image: np.ndarray, a: float, b: float) -> np.ndarray:
     """Adds uniform multiplicative noise to an image."""
-    # YOUR CODE HERE: see `np.random.uniform(...)`
-    # ...
     return image * np.random.uniform(a, b, image.shape)
 
 
 def salt_and_pepper_noise(image: np.ndarray, p: float) -> np.ndarray:
     """Adds salt and pepper noise to an image."""
-    # YOUR CODE HERE: see `np.random.uniform(...)` and `np.random.choice(...)`
-    # ...
     image = np.copy(image)
     for i in range(image.shape[0]):
         for j in range(image.shape[1]):
@@ -34,8 +28,6 @@ def salt_and_pepper_noise(image: np.ndarray, p: float) -> np.ndarray:
 
 def shot_noise(image: np.ndarray) -> np.ndarray:
     """Add shot noise to an image."""
-    # YOUR CODE HERE: see `np.random.poisson(...)`
-    # ...
     return np.random.poisson(image)
 
 

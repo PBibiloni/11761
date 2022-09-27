@@ -7,8 +7,6 @@ from matplotlib import pyplot as plt
 
 def median_filter(image: np.ndarray, filter_size: Tuple[int, int]) -> np.ndarray:
     """Returns an image after applying the median filter of the given size."""
-    # YOUR CODE HERE: see `np.median(...)`
-    # ...
     img_sz_x, img_sz_y = image.shape
     out_sz_x = img_sz_x - filter_size[0] + 1  # Why?
     out_sz_y = img_sz_y - filter_size[1] + 1  # Why?
@@ -24,8 +22,6 @@ def median_filter(image: np.ndarray, filter_size: Tuple[int, int]) -> np.ndarray
 
 def max_pooling(image: np.ndarray, pool_size: Tuple[int, int]) -> np.ndarray:
     """Returns an image after applying the max pooling of the given size."""
-    # YOUR CODE HERE: see `np.max(...)`
-    # ...
     img_sz_x, img_sz_y = image.shape
     out_sz_x = img_sz_x//pool_size[0]   # Why?
     out_sz_y = img_sz_y//pool_size[1]   # Why?
@@ -37,7 +33,6 @@ def max_pooling(image: np.ndarray, pool_size: Tuple[int, int]) -> np.ndarray:
             values = image[i*pool_size[0]:(i+1)*pool_size[0], j*pool_size[1]:(j+1)*pool_size[1]]
             out[i, j] = np.max(values)
     return out
-
 
 
 if __name__ == '__main__':

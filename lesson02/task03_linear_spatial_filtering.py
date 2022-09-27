@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 
 
 def kernel_squared_mean_filter(size: Tuple[int, int]) -> np.ndarray:
-    """Returns a kernel the of given size for the mean filter."""
+    """Returns a kernel of the given size for the squared mean filter."""
     return np.ones(shape=size, dtype=np.float32) / np.prod(size)
 
 

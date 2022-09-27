@@ -31,7 +31,6 @@ def max_pooling(image: np.ndarray, pool_size: Tuple[int, int]) -> np.ndarray:
     return out
 
 
-
 if __name__ == '__main__':
     # Show effect on subset of boat image.
     img = cv2.imread('../samples/boat.tiff', cv2.IMREAD_GRAYSCALE)  # Read the image.

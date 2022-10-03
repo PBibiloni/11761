@@ -20,7 +20,7 @@ def binarize_by_hysteresis(img: np.ndarray, low_threshold: float, high_threshold
             # Ignore label of background
             pass
         elif np.any(img[label_img == label] >= high_threshold):
-                out[label_img == label] = 255
+            out[label_img == label] = 255
     return out
 
 
@@ -35,9 +35,10 @@ def object_centroid(binary_img: np.ndarray) -> tp.Tuple[float, float]:
     """Returns the centroid of one object, passed as a binary image that contains only one connected component."""
     centroid_x = 0
     centroid_y = 0
+    # We will iterate over all pixels (which is simple but very slow... it could be improved by vectorizing the operation)
     for x in range(binary_img.shape[0]):
         for y in range(binary_img.shape[1]):
-            # YOUR CODE HERE: see `cv2.ConnectedComponentsTypes`
+            # YOUR CODE HERE
             # ...
             centroid_x += x * binary_img[x, y]
             centroid_y += y * binary_img[x, y]
@@ -47,8 +48,6 @@ def object_centroid(binary_img: np.ndarray) -> tp.Tuple[float, float]:
 
 def largest_object(binary_img: np.ndarray) -> np.ndarray:
     """Returns a binary image with only the largest connected component."""
-    # YOUR CODE HERE: see `cv2.connectedComponents` or `cv2.connectedComponentsWithStats`
-    # ...
     _, label_img = cv2.connectedComponents(binary_img.astype('uint8'))
     largest_object_label = None
     largest_object_pixels = 0
@@ -74,8 +73,6 @@ def most_centered_object(binary_img: np.ndarray) -> np.ndarray:
     object_distance_to_center = np.inf
     object_label = 0
     for label in range(np.max(label_img)+1):
-        # YOUR CODE HERE: see `np.any(...)` and `np.all(...)`.
-        # ...
         if label == 0:
             # Ignore label of background
             pass
@@ -90,34 +87,33 @@ def most_centered_object(binary_img: np.ndarray) -> np.ndarray:
 
 if __name__ == "__main__":
     # Visualize Hysteresis for different upper thresholds
-    img = cv2.imread('../samples/airplane.tiff', cv2.IMREAD_GRAYSCALE)  # Read the image.
-    img = img.astype('float32')  # Convert to float32 to avoid overflow and rounding errors
-    fig, axs = plt.subplots(2, 2)
-    # Remove default axis
-    for ax in axs.flatten():
-        ax.axis('off')
-    # Show one image per subplot
-    axs.flatten()[0].set_title('Orginal')
-    axs.flatten()[0].imshow(img, cmap='gray')
-    for ax, upper_th in zip(axs.flatten()[1:], [192, 208, 224]):
-        ax.set_title(f'Hysteresis (192, {upper_th:d})')
-        ax.imshow(
-            binarize_by_hysteresis(img, low_threshold=128, high_threshold=upper_th),
-            cmap='gray')
-    # Display figure
-    plt.show()
+    original_img = cv2.imread('../samples/airplane.tiff', cv2.IMREAD_GRAYSCALE)  # Read the image.
+    original_img = original_img.astype('float32')  # Convert to float32 to avoid overflow and rounding errors
+    for image in [original_img, original_img[175:225, 70:120]]:
+        fig, axs = plt.subplots(2, 2)
+        # Remove default axis
+        for ax in axs.flatten():
+            ax.axis('off')
+        # Show one image per subplot
+        axs.flatten()[0].set_title('Orginal')
+        axs.flatten()[0].imshow(image, cmap='gray')
+        for ax, upper_th in zip(axs.flatten()[1:], [192, 208, 224]):
+            ax.set_title(f'Hysteresis (128, {upper_th:d})')
+            ax.imshow(
+                binarize_by_hysteresis(image, low_threshold=128, high_threshold=upper_th),
+                cmap='gray')
+        # Display figure
+        plt.show()
 
-    # Visualize properties
-    img = cv2.imread("../samples/dots.tiff", cv2.IMREAD_GRAYSCALE)
-    binary_img = task01.binarize_by_Otsu(img)
-    largest_object_img = largest_object(binary_img)
-    most_centered_object_img = most_centered_object(binary_img)
+    # Visualize CC properties
+    image = task01.binarize_by_otsu(cv2.imread("../samples/dots.tiff", cv2.IMREAD_GRAYSCALE))
+    largest_object_img = largest_object(image)
+    most_centered_object_img = most_centered_object(image)
 
     results = {
-        'original': img,
-        'binary_img': binary_img,
-        'largest_obj': largest_object(binary_img),
-        'most_centered_obj': most_centered_object(binary_img),
+        'img': image,
+        'largest_obj': largest_object(image),
+        'most_centered_obj': most_centered_object(image),
     }
     results = {k: v for k, v in results.items() if v is not None}  # Remove None values.
 
@@ -127,8 +123,8 @@ if __name__ == "__main__":
     for ax in axs.flatten():
         ax.axis('off')
     # Show one image per subplot
-    for ax, (title, img) in zip(axs.flatten(), results.items()):
+    for ax, (title, subimage) in zip(axs.flatten(), results.items()):
         ax.set_title(title)
-        ax.imshow(img, cmap='gray')
+        ax.imshow(subimage, cmap='gray')
     # Display figure
     plt.show()

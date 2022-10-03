@@ -1,5 +1,3 @@
-import os
-
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
@@ -12,7 +10,7 @@ def binarize_by_thresholding(img: np.ndarray, threshold: float) -> np.ndarray:
     return (img >= threshold)*255
 
 
-def binarize_by_Otsu(img: np.ndarray) -> np.ndarray:
+def binarize_by_otsu(img: np.ndarray) -> np.ndarray:
     """Returns a binary version of the image by applying a thresholding operation."""
     otsu_threshold = 0
     lowest_criteria = np.inf
@@ -61,33 +59,29 @@ def binarize_by_dithering(img: np.ndarray) -> np.ndarray:
 
 if __name__ == "__main__":
     # Show effect
-    img = cv2.imread('../samples/airplane.tiff', cv2.IMREAD_GRAYSCALE)  # Read the image.
-    img = img.astype('float32')  # Convert to float32 to avoid overflow and rounding errors
+    original_img = cv2.imread('../samples/airplane.tiff', cv2.IMREAD_GRAYSCALE)  # Read the image.
+    original_img = original_img.astype('float32')  # Convert to float32 to avoid overflow and rounding errors
     # img = cv2.resize(img, dsize=(img.shape[1]//20, img.shape[0]//20))
-    results = {
-        'img': img,
-        'Threshold_64': binarize_by_thresholding(img, 64),
-        'Threshold_128': binarize_by_thresholding(img, 128),
-        'Threshold_192': binarize_by_thresholding(img, 192),
-        'Otsu': binarize_by_Otsu(img),
-        'Dithering': binarize_by_dithering(img),
-    }
-    results = {k: v for k, v in results.items() if v is not None}  # Remove None values.
 
-    # Visualize images
-    fig, axs = plt.subplots(2, 3)
-    # Remove default axis
-    for ax in axs.flatten():
-        ax.axis('off')
-    # Show one image per subplot
-    for ax, (title, img) in zip(axs.flatten(), results.items()):
-        ax.set_title(title)
-        ax.imshow(img, cmap='gray')
-    # Display figure
-    plt.show()
+    for image in [original_img, original_img[175:225, 70:120]]:
+        results = {
+            'img': image,
+            'Threshold_64': binarize_by_thresholding(image, 64),
+            'Threshold_128': binarize_by_thresholding(image, 128),
+            'Threshold_192': binarize_by_thresholding(image, 192),
+            'Otsu': binarize_by_otsu(image),
+            'Dithering': binarize_by_dithering(image),
+        }
+        results = {k: v for k, v in results.items() if v is not None}  # Remove None values.
 
-    # Save images
-    os.makedirs('../results', exist_ok=True)
-    for title, img in results.items():
-        cv2.imwrite(f'../results/task01_{title}.png', img.astype('uint8'))
-        cv2.imwrite(f'../results/task01_{title}_detail.png', img[175:225, 70:120].astype('uint8'))
+        # Visualize images
+        fig, axs = plt.subplots(2, 3)
+        # Remove default axis
+        for ax in axs.flatten():
+            ax.axis('off')
+        # Show one image per subplot
+        for ax, (title, subimage) in zip(axs.flatten(), results.items()):
+            ax.set_title(title)
+            ax.imshow(subimage, cmap='gray')
+        # Display figure
+        plt.show()

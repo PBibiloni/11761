@@ -70,4 +70,3 @@ if __name__ == "__main__":
             cmap='Pastel1')
     # Display figure
     plt.show()
-

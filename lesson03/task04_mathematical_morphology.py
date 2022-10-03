@@ -9,57 +9,36 @@ def dilation(img: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
     """Returns the dilation of the binary/grayscale image with the given structuring element."""
     # YOUR CODE HERE: see `cv2.dilate`
     # ...
-    return cv2.dilate(img.astype('uint8'), structuring_element.astype('uint8'))
 
 
 def erosion(img: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
     """Returns the erosion of the binary/grayscale image with the given structuring element."""
     # YOUR CODE HERE: see `cv2.erode`
     # ...
-    return cv2.erode(img.astype('uint8'), structuring_element.astype('uint8'))
 
 
 def opening(img: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
     """Returns the opening of the binary/grayscale image with the given structuring element."""
     # YOUR CODE HERE: see `cv2.dilate` and `cv2.erode`
     # ...
-    return dilation(erosion(img, structuring_element), structuring_element)
 
 
 def closing(img: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
     """Returns the closing of the binary/grayscale image with the given structuring element."""
     # YOUR CODE HERE: see `cv2.dilate` and `cv2.erode`
     # ...
-    return erosion(dilation(img, structuring_element), structuring_element)
 
 
 def morphological_gradient(img: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
     """Returns the morphological gradient of the binary/grayscale image with the given structuring element."""
     # YOUR CODE HERE
     # ...
-    return dilation(img, structuring_element) - erosion(img, structuring_element)
 
 
 def morphological_skeleton(img: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
     """Returns the morphological skeleton of the binary/grayscale image considering Lantuéjoul's method."""
     # YOUR CODE HERE
     # ...
-    # Iteratively erode the image (until there are no more pixels)
-    eroded_imgs = []
-    current_img = img
-    while np.any(current_img):
-        eroded_imgs.append(current_img)
-        eroded = erosion(current_img, structuring_element)
-        if np.all(eroded == current_img):
-            # Avoid infinite loop if erosion has no effect
-            break
-        else:
-            current_img = eroded
-
-    skeleton = np.zeros_like(img)
-    for eroded_img in eroded_imgs:
-        skeleton += eroded_img - opening(eroded_img, structuring_element)
-    return skeleton
 
 
 if __name__ == "__main__":

@@ -7,7 +7,6 @@ def binarize_by_thresholding(img: np.ndarray, threshold: float) -> np.ndarray:
     """Returns a binary version of the image by applying a thresholding operation."""
     # YOUR CODE HERE
     # ...
-    return (img >= threshold)*255
 
 
 def binarize_by_otsu(img: np.ndarray) -> np.ndarray:
@@ -15,25 +14,9 @@ def binarize_by_otsu(img: np.ndarray) -> np.ndarray:
     otsu_threshold = 0
     lowest_criteria = np.inf
     for threshold in range(255):
-        thresholded_im = img >= threshold
         # YOUR CODE HERE: You can assume that img ranges from 0 to 255.
         # ...
-        # compute weights
-        weight1 = np.sum(thresholded_im.flatten()) / img.size
-        weight0 = 1 - weight1
-
-        # if one the classes is empty, that threshold will not be considered
-        if weight1 != 0 and weight0 != 0:
-            # compute criteria, based on variance of these classes
-            var0 = np.var(img[thresholded_im == 0])
-            var1 = np.var(img[thresholded_im == 1])
-            otsu_criteria = weight0 * var0 + weight1 * var1
-
-            if otsu_criteria < lowest_criteria:
-                otsu_threshold = threshold
-                lowest_criteria = otsu_criteria
-
-    return binarize_by_thresholding(img, otsu_threshold)
+        pass
 
 
 def binarize_by_dithering(img: np.ndarray) -> np.ndarray:
@@ -44,17 +27,9 @@ def binarize_by_dithering(img: np.ndarray) -> np.ndarray:
     out = np.zeros_like(img)
     for i in range(img.shape[0]):
         for j in range(img.shape[1]):
-            # YOUR CODE HERE: You can assume that img ranges from 0 to 255.
+            # YOUR CODE HERE
             # ...
-            value = padded_img[i, j]
-            if value > 127:
-                out[i, j] = 255
-            error = value - out[i, j]
-            padded_img[i, j + 1] += error * 7 / 16
-            padded_img[i + 1, j - 1] += error * 3 / 16
-            padded_img[i + 1, j] += error * 5 / 16
-            padded_img[i + 1, j + 1] += error * 1 / 16
-    return out
+            pass
 
 
 if __name__ == "__main__":

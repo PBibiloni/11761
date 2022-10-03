@@ -11,11 +11,9 @@ def binarize_by_hysteresis(img: np.ndarray, low_threshold: float, high_threshold
     """Returns a binary version of the image by applying a hysteresis operation."""
     out = np.zeros_like(img)
     binary_img = task01.binarize_by_thresholding(img, low_threshold)
-    retvalue, label_img = cv2.connectedComponents(binary_img.astype('uint8'))
+    _, label_img = cv2.connectedComponents(binary_img.astype('uint8'))
     labels = np.unique(label_img)
     for label in labels:
-        # YOUR CODE HERE: see `np.any(...)` and `np.all(...)`.
-        # ...
         if label == 0:
             # Ignore label of background
             pass
@@ -26,8 +24,6 @@ def binarize_by_hysteresis(img: np.ndarray, low_threshold: float, high_threshold
 
 def object_area(binary_img: np.ndarray) -> np.ndarray:
     """Returns the area of one object, passed as a binary image that contains only one connected component."""
-    # YOUR CODE HERE:
-    # ...
     return np.sum(binary_img)
 
 
@@ -38,8 +34,6 @@ def object_centroid(binary_img: np.ndarray) -> tp.Tuple[float, float]:
     # We will iterate over all pixels (which is simple but very slow... it could be improved by vectorizing the operation)
     for x in range(binary_img.shape[0]):
         for y in range(binary_img.shape[1]):
-            # YOUR CODE HERE
-            # ...
             centroid_x += x * binary_img[x, y]
             centroid_y += y * binary_img[x, y]
     m00 = object_area(binary_img)
@@ -52,8 +46,6 @@ def largest_object(binary_img: np.ndarray) -> np.ndarray:
     largest_object_label = None
     largest_object_pixels = 0
     for label in range(np.max(label_img)+1):
-        # YOUR CODE HERE: see `np.any(...)` and `np.all(...)`.
-        # ...
         if label == 0:
             # Ignore label of background
             pass
@@ -67,8 +59,6 @@ def largest_object(binary_img: np.ndarray) -> np.ndarray:
 
 def most_centered_object(binary_img: np.ndarray) -> np.ndarray:
     """Returns a binary image with only the most centered connected component."""
-    # YOUR CODE HERE: see `cv2.ConnectedComponentsTypes`
-    # ...
     _, label_img = cv2.connectedComponents(binary_img.astype('uint8'))
     object_distance_to_center = np.inf
     object_label = 0

@@ -19,8 +19,6 @@ def label_connected_components(binary_img: np.ndarray) -> np.ndarray:
                 if j >= 1 and label_img[i, j-1]:
                     previous_labels.append(label_img[i, j-1])
 
-                # YOUR CODE HERE:
-                # ...
                 if len(previous_labels) == 0:
                     # No labelled neighbours: create a new label
                     label_img[i, j] = np.max(label_img) + 1
@@ -46,9 +44,9 @@ def label_connected_components(binary_img: np.ndarray) -> np.ndarray:
             # If representative is not a root, find its root.
             if representative in collisions:
                 collisions[label] = collisions[representative]
+
+    # Replace labels with their representatives.
     for label, min_label_in_same_cc in collisions.items():
-        # YOUR CODE HERE: see `np.where(...)`.
-        # ...
         label_img[label_img == label] = min_label_in_same_cc
     return label_img
 

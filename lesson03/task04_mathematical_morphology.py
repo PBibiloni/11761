@@ -19,13 +19,13 @@ def erosion(img: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
 
 def opening(img: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
     """Returns the opening of the binary/grayscale image with the given structuring element."""
-    # YOUR CODE HERE: see `cv2.dilate` and `cv2.erode`
+    # YOUR CODE HERE: see `cv2.dilate`, `cv2.erode` and `np.flip`
     # ...
 
 
 def closing(img: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
     """Returns the closing of the binary/grayscale image with the given structuring element."""
-    # YOUR CODE HERE: see `cv2.dilate` and `cv2.erode`
+    # YOUR CODE HERE: see `cv2.dilate`, `cv2.erode` and `np.flip`
     # ...
 
 

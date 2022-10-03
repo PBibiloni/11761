@@ -11,7 +11,7 @@ def binarize_by_hysteresis(img: np.ndarray, low_threshold: float, high_threshold
     """Returns a binary version of the image by applying a hysteresis operation."""
     out = np.zeros_like(img)
     binary_img = task01.binarize_by_thresholding(img, low_threshold)
-    retvalue, label_img = cv2.connectedComponents(binary_img.astype('uint8'))
+    _, label_img = cv2.connectedComponents(binary_img.astype('uint8'))
     labels = np.unique(label_img)
     for label in labels:
         # YOUR CODE HERE: see `np.any(...)` and `np.all(...)`.
@@ -54,7 +54,7 @@ def largest_object(binary_img: np.ndarray) -> np.ndarray:
 
 def most_centered_object(binary_img: np.ndarray) -> np.ndarray:
     """Returns a binary image with only the most centered connected component."""
-    # YOUR CODE HERE: see `cv2.ConnectedComponentsTypes`
+    # YOUR CODE HERE: see `cv2.ConnectedComponents`
     # ...
 
 

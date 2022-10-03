@@ -32,7 +32,7 @@ def label_connected_components(binary_img: np.ndarray) -> np.ndarray:
 
     # Replace labels with their representatives.
     for label, min_label_in_same_cc in collisions.items():
-        # YOUR CODE HERE: see `np.where(...)`.
+        # YOUR CODE HERE
         # ...
         pass
 

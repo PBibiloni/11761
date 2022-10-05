@@ -14,7 +14,7 @@ def binarize_by_otsu(img: np.ndarray) -> np.ndarray:
     otsu_threshold = 0
     lowest_criteria = np.inf
     for threshold in range(255):
-        # YOUR CODE HERE: You can assume that img ranges from 0 to 255.
+        # YOUR CODE HERE: You can assume that img ranges from 0 to 255. See `np.var(...)`.
         # ...
         pass
 

@@ -15,7 +15,7 @@ def binarize_by_otsu(img: np.ndarray) -> np.ndarray:
     for threshold in range(255):
         thresholded_im = img >= threshold
         # compute weights
-        weight1 = np.sum(thresholded_im.flatten()) / img.size
+        weight1 = np.sum(thresholded_im) / img.size
         weight0 = 1 - weight1
 
         # if one the classes is empty, that threshold will not be considered

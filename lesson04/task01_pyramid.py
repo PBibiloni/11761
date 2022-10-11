@@ -7,8 +7,6 @@ from matplotlib import pyplot as plt
 
 def gaussian_pyramid(img: np.ndarray, levels: int) -> tp.List[np.ndarray]:
     """Returns a Gaussian pyramid of the image."""
-    # Your code here: see `cv.pyrDown(...)`
-    # ...
     pyramid = [img]
     for _ in range(levels):
         pyramid.append(cv2.pyrDown(pyramid[-1]))
@@ -17,8 +15,6 @@ def gaussian_pyramid(img: np.ndarray, levels: int) -> tp.List[np.ndarray]:
 
 def laplacian_pyramid(img: np.ndarray, levels: int) -> tp.List[np.ndarray]:
     """Returns a Laplacian pyramid of the image."""
-    # Your code here: see `cv.pyrDown(...)` and `cv.pyrUp(...)`
-    # ...
     g_pyramid = gaussian_pyramid(img, levels)
     l_pyramid = []
     for idx in range(levels-1):

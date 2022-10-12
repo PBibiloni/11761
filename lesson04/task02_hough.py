@@ -1,40 +1,50 @@
-import typing as tp
-
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
 
-def hough_lines(img: np.ndarray):
-    """Plots the location of the main lines of the image."""
-    # Your code here: see `cv.HoughLines(...)` and the sample `logo.png`
+def hough_lines():
+    """Draws and plots the location of the main lines of the image."""
+    img = cv2.imread('../samples/logo.png', cv2.IMREAD_COLOR)
+    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    img_edges = cv2.Canny(img_gray, 100, 200)
+    # Your code here: use `cv2.HoughLines(img_edges, ...)` with the `img_edges` as input.
+    #                 use `cv2.line(img, ...)` to draw the lines on the original image `img`.
     # ...
 
+    # Visualize them
+    fig, axs = plt.subplots(1, 3)
+    fig.suptitle('Hough (lines)')
+    axs[0].set_title('Grayscale')
+    axs[0].imshow(img_gray, cmap='gray')
+    axs[1].set_title('Edges (dilated)')
+    axs[1].imshow(cv2.dilate(img_edges, np.ones((5,5))), cmap='gray')
+    axs[2].set_title('Img (with lines)')
+    axs[2].imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB), cmap='gray')
+    plt.show()
 
-def hough_circles(img: np.ndarray) -> tp.List[np.ndarray]:
-    """Plots the location of the main circles of the image."""
-    # Your code here: see `cv.HoughCircles(...)` and the sample `dots.tiff`
+
+def hough_circles():
+    """Draws and plots the location of the main circles of the image."""
+    img = cv2.imread('../samples/dots.tiff', cv2.IMREAD_COLOR)
+    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    img_edges = cv2.Canny(img_gray, 100, 200)
+    # Your code here: see `cv.HoughCircles(img_edges, ...)` with the `img_edges` as input.
+    #                 use `cv2.circle(img, ...)` to draw the circles on the original image `img`.
     # ...
+
+    # Visualize them
+    fig, axs = plt.subplots(1, 3)
+    fig.suptitle('Hough (lines)')
+    axs[0].set_title('Grayscale')
+    axs[0].imshow(img_gray, cmap='gray')
+    axs[1].set_title('Edges (dilated)')
+    axs[1].imshow(cv2.dilate(img_edges, np.ones((5,5))), cmap='gray')
+    axs[2].set_title('Img (with lines)')
+    axs[2].imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB), cmap='gray')
+    plt.show()
 
 
 if __name__ == "__main__":
-    visualizations = [
-        ('Lines', hough_lines, '../samples/logo.png'),
-        ('Circles', hough_circles, '../samples/dots.tiff'),
-    ]
-
-    for name, hough_function, path in visualizations:
-        img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
-        edges = cv2.Canny(img, 100, 200)
-
-        fig, axs = plt.subplots(1, 2)
-        fig.suptitle(name)
-        axs[0].set_title('Original')
-        axs[0].imshow(img, cmap='gray')
-        axs[1].set_title('Edges')
-        axs[1].imshow(edges, cmap='gray')
-        # Display figure
-        plt.show()
-
-        # Show effect
-        res = hough_function(edges)
+    hough_lines()
+    hough_circles()

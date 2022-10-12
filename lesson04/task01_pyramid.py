@@ -35,8 +35,6 @@ def remove_finer_detail(img: np.ndarray) -> np.ndarray:
     """Removes the finer details of the image by applying a Laplacian pyramid."""
     original_img = cv2.imread('../samples/airplane.tiff', cv2.IMREAD_GRAYSCALE).astype('float32')
     l_pyramid = laplacian_pyramid(original_img, levels=6)
-    # Your code here: how many `levels` will you remove? how?
-    # ...
     l_pyramid[0] = np.zeros_like(l_pyramid[0])
     l_pyramid[1] = np.zeros_like(l_pyramid[1])
     return reconstruct_from_laplacian_pyramid(l_pyramid)

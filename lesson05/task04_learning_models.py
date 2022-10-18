@@ -23,9 +23,18 @@ def get_features_gabor_filter_bank(img):
 def features_eigenvalues_hessian(img):
     # Your code here: compute the eigenvalues of the Hessian matrix.
     # ...
-    det = cv2.cornerHarris(img, 2, 3, 0)
-    trace = cv2.cornerHarris(img, 2, 3, 1) - det
-    X = np.stack([det.flatten(), trace.flatten()], axis=-1)
+    hessian_dxdx = cv2.Sobel(img, cv2.CV_32F, 2, 0, ksize=3)
+    hessian_dxdy = cv2.Sobel(img, cv2.CV_32F, 1, 1, ksize=3)
+    hessian_dydx = hessian_dxdy
+    hessian_dydy = cv2.Sobel(img, cv2.CV_32F, 0, 2, ksize=3)
+
+    hessian_det = hessian_dxdx * hessian_dydy - hessian_dxdy * hessian_dydx
+    hessian_trace = hessian_dxdx + hessian_dydy
+    # Solve `x^2 - trace * x + det = 0`
+    hessian_eigenvalue_1 = 0.5 * (hessian_trace + np.sqrt(hessian_trace**2 - 4 * hessian_det))
+    hessian_eigenvalue_2 = 0.5 * (hessian_trace - np.sqrt(hessian_trace**2 - 4 * hessian_det))
+
+    X = np.stack([hessian_det.flatten(), hessian_trace.flatten(), hessian_eigenvalue_1.flatten(), hessian_eigenvalue_2.flatten()], axis=-1)
     return X
 
 
@@ -35,7 +44,7 @@ def logistic_classifier():
 
     # Get features
     X = get_features_gabor_filter_bank(img)
-    # or X = features_eigenvalues_hessian(img)
+    X = features_eigenvalues_hessian(img)
 
     # Get labels
     num_pixels = img.shape[0] * img.shape[1]

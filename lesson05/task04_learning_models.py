@@ -6,6 +6,8 @@ from sklearn.linear_model import LogisticRegression
 
 
 def get_features_gabor_filter_bank(img):
+    """Computes features based on Gabor filters."""
+    # (This function is done for you.)
     kernels = [
         cv2.getGaborKernel(ksize=(15, 15), sigma=sigma, theta=theta, lambd=lambd, gamma=gamma, psi=0)
         for sigma in [3, 5, 7]
@@ -21,21 +23,10 @@ def get_features_gabor_filter_bank(img):
 
 
 def features_eigenvalues_hessian(img):
-    # Your code here: compute the eigenvalues of the Hessian matrix.
+    """Computes features based on the eigenvalues of the Hessian matrix."""
+    # Your code here
     # ...
-    hessian_dxdx = cv2.Sobel(img, cv2.CV_32F, 2, 0, ksize=3)
-    hessian_dxdy = cv2.Sobel(img, cv2.CV_32F, 1, 1, ksize=3)
-    hessian_dydx = hessian_dxdy
-    hessian_dydy = cv2.Sobel(img, cv2.CV_32F, 0, 2, ksize=3)
-
-    hessian_det = hessian_dxdx * hessian_dydy - hessian_dxdy * hessian_dydx
-    hessian_trace = hessian_dxdx + hessian_dydy
-    # Solve `x^2 - trace * x + det = 0`
-    hessian_eigenvalue_1 = 0.5 * (hessian_trace + np.sqrt(hessian_trace**2 - 4 * hessian_det))
-    hessian_eigenvalue_2 = 0.5 * (hessian_trace - np.sqrt(hessian_trace**2 - 4 * hessian_det))
-
-    X = np.stack([hessian_det.flatten(), hessian_trace.flatten(), hessian_eigenvalue_1.flatten(), hessian_eigenvalue_2.flatten()], axis=-1)
-    return X
+    # (Make sure to fill code in the following function first.)
 
 
 def logistic_classifier():
@@ -62,12 +53,11 @@ def logistic_classifier():
     y_train = y[random_selection]
     # Your code here: use `model.fit(X, y)` to train the model.
     # ...
-    model.fit(X_train, y_train)
 
     # Make predictions
     # Your code here: use `model.predict(X)` to train the model.
     # ...
-    predictions = model.predict(X).reshape(img.shape)
+    predictions = np.zeros_like(y)  # You may delete this line.
 
     # Show results
     img_with_gt = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)

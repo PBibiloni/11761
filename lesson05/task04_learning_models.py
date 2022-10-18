@@ -21,8 +21,6 @@ def get_features_gabor_filter_bank(img):
 
 
 def features_eigenvalues_hessian(img):
-    # Your code here: compute the eigenvalues of the Hessian matrix.
-    # ...
     hessian_dxdx = cv2.Sobel(img, cv2.CV_32F, 2, 0, ksize=3)
     hessian_dxdy = cv2.Sobel(img, cv2.CV_32F, 1, 1, ksize=3)
     hessian_dydx = hessian_dxdy
@@ -44,7 +42,7 @@ def logistic_classifier():
 
     # Get features
     X = get_features_gabor_filter_bank(img)
-    X = features_eigenvalues_hessian(img)
+    # or X = features_eigenvalues_hessian(img)
 
     # Get labels
     num_pixels = img.shape[0] * img.shape[1]

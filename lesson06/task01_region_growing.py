@@ -10,13 +10,12 @@ def region_growing_segmentation(img_gray: np.ndarray, seed_pixel: tp.Tuple[int, 
     # Smooth image to improve results.
     img_gray = img_gray.astype('float')
     img_gray = cv2.GaussianBlur(img_gray, ksize=(5, 5), sigmaX=0)
-    # Your code here:
-    # ...
-    img_gray = img_gray.astype('uint8')
+    # Initialize mask.
     segmentation = np.zeros_like(img_gray)
-    current_pixels = [seed_pixel]
-    while current_pixels:
-        pixel = current_pixels.pop()
+
+    pixels_to_process = [seed_pixel]
+    while pixels_to_process:
+        pixel = pixels_to_process.pop()
         # Your code here: Add the pixel to the segmentation
         # ...
         segmentation[pixel] = 1
@@ -30,15 +29,19 @@ def region_growing_segmentation(img_gray: np.ndarray, seed_pixel: tp.Tuple[int, 
         # Filter out pixels that are already in the segmentation
         candidates = [c for c in candidates
                       if segmentation[c] == 0]
+        # Filter out pixels that are too white
+        candidates = [c for c in candidates
+                      if img_gray[c] < 150]
         # Filter out pixels that are too different
         candidates = [c for c in candidates if
-                      np.abs(img_gray[c] - img_gray[pixel]) < 80]
-
-        for candidate in candidates:
-            current_pixels.append(candidate)
+                      np.abs(img_gray[c] - img_gray[pixel]) < 50]
+        # Add neighbours to the list of pixels to process
+        pixels_to_process = candidates + pixels_to_process
 
         # Check for an ending condition
-        if np.sum(segmentation) > 0.3 * img_gray.size:
+        # Your code here: Add [some of] its neighbours to the list of current pixels
+        # ...
+        if np.sum(segmentation) > 0.1 * img_gray.size:
             break
 
     return segmentation

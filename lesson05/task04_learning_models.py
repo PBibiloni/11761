@@ -5,37 +5,14 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 
 
-def get_features_gabor_filter_bank(img):
-    """Computes features based on Gabor filters."""
-    # (This function is done for you.)
-    kernels = [
-        cv2.getGaborKernel(ksize=(15, 15), sigma=sigma, theta=theta, lambd=lambd, gamma=gamma, psi=0)
-        for sigma in [3, 5, 7]
-        for theta in [np.pi, np.pi / 2, 0]
-        for lambd in [1.5, 2]
-        for gamma in [1, 1.5]
-    ]
-    filtered_images = [cv2.filter2D(img, cv2.CV_64F, kernel) for kernel in kernels]
-
-    # Create features
-    X = np.stack([f.flatten() for f in filtered_images], axis=-1)
-    return X
-
-
-def features_eigenvalues_hessian(img):
-    """Computes features based on the eigenvalues of the Hessian matrix."""
-    # Your code here
-    # ...
-    # (Make sure to fill code in the following function first.)
-
-
-def logistic_classifier():
+def train_and_test_model():
     img = cv2.imread('../samples/Retinal_DRIVE21_original.tif', cv2.IMREAD_GRAYSCALE)
     mask = cv2.imread('../samples/Retinal_DRIVE21_gt.tif', cv2.IMREAD_GRAYSCALE)
 
     # Get features
-    X = get_features_gabor_filter_bank(img)
-    X = features_eigenvalues_hessian(img)
+    X = features_gabor_filter_bank(img)
+    # or X = features_eigenvalues_hessian(img)
+    # or X = np.concatenate([features_gabor_filter_bank(img), features_eigenvalues_hessian(img)], axis=1)
 
     # Get labels
     num_pixels = img.shape[0] * img.shape[1]
@@ -73,5 +50,29 @@ def logistic_classifier():
     plt.show()
 
 
+def features_gabor_filter_bank(img):
+    """Computes features based on Gabor filters."""
+    # (This function is already provided completely.)
+    kernels = [
+        cv2.getGaborKernel(ksize=(15, 15), sigma=sigma, theta=theta, lambd=lambd, gamma=gamma, psi=0)
+        for sigma in [3, 5, 7]
+        for theta in [np.pi, np.pi / 2, 0]
+        for lambd in [1.5, 2]
+        for gamma in [1, 1.5]
+    ]
+    filtered_images = [cv2.filter2D(img, cv2.CV_64F, kernel) for kernel in kernels]
+
+    # Create features
+    X = np.stack([f.flatten() for f in filtered_images], axis=-1)
+    return X
+
+
+def features_eigenvalues_hessian(img):
+    """Computes features based on the eigenvalues of the Hessian matrix."""
+    # Your code here
+    # ...
+    # (Make sure to fill code in the following function first.)
+
+
 if __name__ == '__main__':
-    logistic_classifier()
+    train_and_test_model()

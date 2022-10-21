@@ -5,53 +5,37 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 
-def segmentation_by_watershed(img_bgr: np.ndarray, seed_pixel: tp.Tuple[int, int]) -> np.ndarray:
-    """Segment the image by considering a watershed method."""
-    # Your code here: see cv2.watershed(...)
-    # ...
-    markers = np.ones(img_bgr.shape[:2], dtype=np.int32)
-    markers[10:-10, 10:-10] = 0
-    markers[seed_pixel] = 255
-    watshd = cv2.watershed(img_bgr, markers=markers)
-    return watshd
-
-
-def edge_based_segmentation(img_gray: np.ndarray, seed_pixel: tp.Tuple[int, int]) -> np.ndarray:
-    """Segment the image by considering contours derived from edges."""
-    # Your code here: see cv2.Canny(...) and cv2.findContours(...).
-    # ...
-    segmentation = np.zeros_like(img_gray)
-    img_edges = cv2.Canny(img_gray, threshold1=100, threshold2=200, apertureSize=3)
-    contours, hierarchy = cv2.findContours(img_edges, mode=cv2.RETR_EXTERNAL, method=cv2.CHAIN_APPROX_SIMPLE)
-
-    # Your code here: Draw the contours on a black image
-    for contour in contours:
-        pointPolygonTest_seed = np.array(seed_pixel, dtype='uint8')
-        if cv2.pointPolygonTest(contour, pointPolygonTest_seed, measureDist=False) != -1:
-            cv2.drawContours(segmentation, [contour], contourIdx=-1, color=255, thickness=-1)
-
-    return segmentation
-
-
 def region_growing_segmentation(img_gray: np.ndarray, seed_pixel: tp.Tuple[int, int]) -> np.ndarray:
     """Segment the image by considering a region-growing method."""
+    # Smooth image to improve results.
+    img_gray = img_gray.astype('float')
+    img_gray = cv2.GaussianBlur(img_gray, ksize=(5, 5), sigmaX=0)
     # Your code here:
     # ...
+    img_gray = img_gray.astype('uint8')
     segmentation = np.zeros_like(img_gray)
     current_pixels = [seed_pixel]
     while current_pixels:
         pixel = current_pixels.pop()
         # Your code here: Add the pixel to the segmentation
         # ...
-        segmentation[pixel] = 255
+        segmentation[pixel] = 1
 
         # Your code here: Add [some of] its neighbours to the list of current pixels
         # ...
         candidates = [(pixel[0] + 1, pixel[1]), (pixel[0] - 1, pixel[1]), (pixel[0], pixel[1] + 1), (pixel[0], pixel[1] - 1)]
+        # Filter out pixels that are out of bounds
+        candidates = [c for c in candidates
+                      if 0 <= c[0] < img_gray.shape[0] and 0 <= c[1] < img_gray.shape[1]]
+        # Filter out pixels that are already in the segmentation
+        candidates = [c for c in candidates
+                      if segmentation[c] == 0]
+        # Filter out pixels that are too different
+        candidates = [c for c in candidates if
+                      np.abs(img_gray[c] - img_gray[pixel]) < 80]
+
         for candidate in candidates:
-            if candidate[0] >= 0 and candidate[0] < img_gray.shape[0] and candidate[1] >= 0 and candidate[1] < img_gray.shape[1]:
-                if segmentation[candidate] == 0 and abs(img_gray[pixel] - img_gray[candidate]) < 50:
-                    current_pixels.append(candidate)
+            current_pixels.append(candidate)
 
         # Check for an ending condition
         if np.sum(segmentation) > 0.3 * img_gray.size:
@@ -73,14 +57,13 @@ if __name__ == "__main__":
 
     results = {
         'Region of interest': region_of_interest,
-        'Segmentation by watershed': segmentation_by_watershed(img_bgr, seed_point),
-        'Edge-based segmentation': edge_based_segmentation(img_gray, seed_point),
         'Region-growing segmentation': region_growing_segmentation(img_gray, seed_point),
     }
     results = {k: v for k, v in results.items() if v is not None}
 
     # Visualize images
-    fig, axs = plt.subplots(2, 2)
+    fig, axs = plt.subplots(1, 2)
+    [ax.axis('off') for ax in axs.flatten()]
     # Show one image per subplot
     for ax, (title, binary_image) in zip(axs.flatten(), results.items()):
         subimage = np.copy(img_bgr)
@@ -91,14 +74,4 @@ if __name__ == "__main__":
                  color=(0, 0, 255), thickness=2)
         ax.imshow(cv2.cvtColor(subimage, cv2.COLOR_BGR2RGB))
         ax.set_title(title)
-        ax.axis('off')
-    # axs[0, 0].set_title('Original')
-    # axs[0, 0].imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-    # axs[0, 1].set_title('Grayscale')
-    # axs[0, 1].imshow(img_gray, cmap='gray')
-    # axs[1, 0].set_title('Edges')
-    # axs[1, 0].imshow(cv2.cvtColor(img_with_edges, cv2.COLOR_BGR2RGB), cmap='gray')
-    # axs[1, 1].set_title('Corners')
-    # axs[1, 1].imshow(cv2.cvtColor(img_with_corners, cv2.COLOR_BGR2RGB), cmap='gray')
-    # Display figure
     plt.show()

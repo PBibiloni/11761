@@ -5,80 +5,12 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 
 
-def get_geometric_features(region_labels:np.ndarray) -> np.ndarray:
-    features = []
-    for label_idx in range(np.max(region_labels) + 1):
-        region_mask = (region_labels == label_idx)
-
-        # Compute geometric features for this region.
-        area = np.sum(region_mask)
-        # Your code here: Add others (e.g. perimeter, centroid, roundness, ...)
-        # ...
-        perimeter = np.sum(region_mask != cv2.erode(region_mask.astype('uint8'), np.ones((3, 3))))
-        pixel_locations = np.where(region_mask)
-        centroid_x = np.mean(pixel_locations[0])
-        centroid_y = np.mean(pixel_locations[1])
-        std_x = np.std(pixel_locations[0])
-        std_y = np.std(pixel_locations[1])
-        roundness = 4 * np.pi * area / (perimeter**2)
-
-        # Store them
-        features.append([
-            area,
-            # ...
-            perimeter,
-            centroid_x,
-            centroid_y,
-            std_x,
-            std_y,
-            roundness,
-        ])
-
-    # Output as a numpy array indexed as [region_idx, feature_idx].
-    X = np.array(features)
-    return X
-
-
-def get_photometric_features(img_bgr: np.ndarray, region_labels: np.ndarray) -> np.ndarray:
-    features = []
-    for label_idx in range(np.max(region_labels) + 1):
-        region_mask = (region_labels == label_idx)
-
-        # Compute photometric features for this region.
-        max_red_value = img_bgr[region_mask, 2].max()
-        # Your code here: Add others (e.g. other channels, mean values, std of values, ...)
-        # ...
-        mean_red_value = np.mean(img_bgr[region_mask, 2])
-        std_red_value = np.std(img_bgr[region_mask, 2])
-        max_green_value = img_bgr[region_mask, 1].max()
-        mean_green_value = np.mean(img_bgr[region_mask, 1])
-        std_green_value = np.std(img_bgr[region_mask, 1])
-        max_blue_value = img_bgr[region_mask, 0].max()
-        mean_blue_value = np.mean(img_bgr[region_mask, 0])
-        std_blue_value = np.std(img_bgr[region_mask, 0])
-
-        # Store them
-        features.append([
-            max_red_value,
-            # ...
-            mean_red_value,
-            std_red_value,
-            max_green_value,
-            mean_green_value,
-            std_green_value,
-            max_blue_value,
-            mean_blue_value,
-            std_blue_value,
-        ])
-
-    # Output as a numpy array indexed as [region_idx, feature_idx].
-    X = np.array(features)
-    return X
-
-
-if __name__ == '__main__':
+def train_and_test_model():
+    """ Trains and tests a model to classify superpixels. """
+    # Read sample image
     img_bgr = cv2.imread('../samples/Ki67.jpg', cv2.IMREAD_COLOR)
     img_bgr = cv2.resize(img_bgr, (0, 0), fx=0.25, fy=0.25)
+    # Infer (automatically) which pixels will be set as positives.
     ground_truth = cv2.dilate((cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY) <= 128).astype('uint8') * 255, np.ones((3, 3)))
 
     # Superpixel segmentation
@@ -137,4 +69,80 @@ if __name__ == '__main__':
     axs[1, 1].set_title('Predictions')
     plt.show()
 
+
+def get_geometric_features(region_labels:np.ndarray) -> np.ndarray:
+    """ Computes geometric features for each region in the image. """
+    features = []
+    for label_idx in range(np.max(region_labels) + 1):
+        region_mask = (region_labels == label_idx)
+
+        # Compute geometric features for this region.
+        area = np.sum(region_mask)
+        # Your code here: Add others (e.g. perimeter, centroid, roundness, ...)
+        # ...
+        perimeter = np.sum(region_mask != cv2.erode(region_mask.astype('uint8'), np.ones((3, 3))))
+        pixel_locations = np.where(region_mask)
+        centroid_x = np.mean(pixel_locations[0])
+        centroid_y = np.mean(pixel_locations[1])
+        std_x = np.std(pixel_locations[0])
+        std_y = np.std(pixel_locations[1])
+        roundness = 4 * np.pi * area / (perimeter**2)
+
+        # Store them
+        features.append([
+            area,
+            # ...
+            perimeter,
+            centroid_x,
+            centroid_y,
+            std_x,
+            std_y,
+            roundness,
+        ])
+
+    # Output as a numpy array indexed as [region_idx, feature_idx].
+    X = np.array(features)
+    return X
+
+
+def get_photometric_features(img_bgr: np.ndarray, region_labels: np.ndarray) -> np.ndarray:
+    """ Computes photometric features for each region in the image. """
+    features = []
+    for label_idx in range(np.max(region_labels) + 1):
+        region_mask = (region_labels == label_idx)
+
+        # Compute photometric features for this region.
+        max_red_value = img_bgr[region_mask, 2].max()
+        # Your code here: Add others (e.g. other channels, mean values, std of values, ...)
+        # ...
+        mean_red_value = np.mean(img_bgr[region_mask, 2])
+        std_red_value = np.std(img_bgr[region_mask, 2])
+        max_green_value = img_bgr[region_mask, 1].max()
+        mean_green_value = np.mean(img_bgr[region_mask, 1])
+        std_green_value = np.std(img_bgr[region_mask, 1])
+        max_blue_value = img_bgr[region_mask, 0].max()
+        mean_blue_value = np.mean(img_bgr[region_mask, 0])
+        std_blue_value = np.std(img_bgr[region_mask, 0])
+
+        # Store them
+        features.append([
+            max_red_value,
+            # ...
+            mean_red_value,
+            std_red_value,
+            max_green_value,
+            mean_green_value,
+            std_green_value,
+            max_blue_value,
+            mean_blue_value,
+            std_blue_value,
+        ])
+
+    # Output as a numpy array indexed as [region_idx, feature_idx].
+    X = np.array(features)
+    return X
+
+
+if __name__ == '__main__':
+    train_and_test_model()
 

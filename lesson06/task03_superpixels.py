@@ -4,6 +4,7 @@ from matplotlib import pyplot as plt
 
 
 def superpixels_LSC(img_bgr: np.ndarray) -> np.ndarray:
+    """ Returns a label image corresponding to the superpixels created according to the LSC algorithm. """
     # Your code here: see class `cv2.ximgproc.createSuperpixelLSC`, and its methods `iterate(...)` and `getLabels(...)`
     # ...
     lsc = cv2.ximgproc.createSuperpixelLSC(img_bgr, region_size=50, ratio=0.075)
@@ -12,6 +13,7 @@ def superpixels_LSC(img_bgr: np.ndarray) -> np.ndarray:
 
 
 def superpixels_SEEDS(img_bgr: np.ndarray) -> np.ndarray:
+    """ Returns a label image corresponding to the superpixels created according to the SEEDS algorithm. """
     # Your code here: see class `cv2.ximgproc.createSuperpixelSEEDS`, and its methods `iterate(...)` and `getLabels(...)`
     # ...
     sh = img_bgr.shape
@@ -21,6 +23,7 @@ def superpixels_SEEDS(img_bgr: np.ndarray) -> np.ndarray:
 
 
 def superpixels_SLIC(img_bgr: np.ndarray) -> np.ndarray:
+    """ Returns a label image corresponding to the superpixels created according to the SLIC algorithm. """
     # Your code here: see class `cv2.ximgproc.createSuperpixelSLIC`, and its methods `iterate(...)` and `getLabels(...)`
     # ...
     seeds = cv2.ximgproc.createSuperpixelSLIC(img_bgr, region_size=30, ruler=3)

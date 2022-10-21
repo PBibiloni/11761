@@ -16,12 +16,10 @@ def region_growing_segmentation(img_gray: np.ndarray, seed_pixel: tp.Tuple[int, 
     pixels_to_process = [seed_pixel]
     while pixels_to_process:
         pixel = pixels_to_process.pop()
-        # Your code here: Add the pixel to the segmentation
-        # ...
+        # Add the pixel to the segmentation
         segmentation[pixel] = 1
 
-        # Your code here: Add [some of] its neighbours to the list of current pixels
-        # ...
+        # Add [some of] its neighbours to the list of current pixels
         candidates = [(pixel[0] + 1, pixel[1]), (pixel[0] - 1, pixel[1]), (pixel[0], pixel[1] + 1), (pixel[0], pixel[1] - 1)]
         # Filter out pixels that are out of bounds
         candidates = [c for c in candidates
@@ -39,8 +37,6 @@ def region_growing_segmentation(img_gray: np.ndarray, seed_pixel: tp.Tuple[int, 
         pixels_to_process = candidates + pixels_to_process
 
         # Check for an ending condition
-        # Your code here: Add [some of] its neighbours to the list of current pixels
-        # ...
         if np.sum(segmentation) > 0.1 * img_gray.size:
             break
 

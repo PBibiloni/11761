@@ -20,9 +20,9 @@ def train_and_test_model():
     region_labels = seeds.getLabels()
 
     # Get features
-    X = get_geometric_features(region_labels)
-    # or X = get_photometric_features(img_bgr, region_labels)
-    # or X = np.concatenate([get_geometric_features(region_labels), get_photometric_features(img_bgr, region_labels)], axis=1)
+    # X = get_geometric_features(region_labels)
+    # X = get_photometric_features(img_bgr, region_labels)
+    X = np.concatenate([get_geometric_features(region_labels), get_photometric_features(img_bgr, region_labels)], axis=1)
 
     # Get labels
     positives_per_region = []
@@ -38,13 +38,9 @@ def train_and_test_model():
     # or model = RandomForestClassifier()
 
     # Train model
-    # Your code here: use `model.fit(...)` to train the model.
-    # ...
     model.fit(X, y)
 
     # Make predictions
-    # Your code here: use `model.predict(X)` to train the model.
-    # ...
     predictions_per_region = model.predict(X)
     predictions = predictions_per_region[region_labels]
 
@@ -78,8 +74,6 @@ def get_geometric_features(region_labels:np.ndarray) -> np.ndarray:
 
         # Compute geometric features for this region.
         area = np.sum(region_mask)
-        # Your code here: Add others (e.g. perimeter, centroid, roundness, ...)
-        # ...
         perimeter = np.sum(region_mask != cv2.erode(region_mask.astype('uint8'), np.ones((3, 3))))
         pixel_locations = np.where(region_mask)
         centroid_x = np.mean(pixel_locations[0])
@@ -91,7 +85,6 @@ def get_geometric_features(region_labels:np.ndarray) -> np.ndarray:
         # Store them
         features.append([
             area,
-            # ...
             perimeter,
             centroid_x,
             centroid_y,
@@ -113,8 +106,6 @@ def get_photometric_features(img_bgr: np.ndarray, region_labels: np.ndarray) -> 
 
         # Compute photometric features for this region.
         max_red_value = img_bgr[region_mask, 2].max()
-        # Your code here: Add others (e.g. other channels, mean values, std of values, ...)
-        # ...
         mean_red_value = np.mean(img_bgr[region_mask, 2])
         std_red_value = np.std(img_bgr[region_mask, 2])
         max_green_value = img_bgr[region_mask, 1].max()
@@ -127,7 +118,6 @@ def get_photometric_features(img_bgr: np.ndarray, region_labels: np.ndarray) -> 
         # Store them
         features.append([
             max_red_value,
-            # ...
             mean_red_value,
             std_red_value,
             max_green_value,

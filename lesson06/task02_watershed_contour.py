@@ -7,8 +7,6 @@ from matplotlib import pyplot as plt
 
 def segmentation_by_watershed(img_bgr: np.ndarray, seed_pixel: tp.Tuple[int, int]) -> np.ndarray:
     """Segment the image by considering a watershed method."""
-    # Your code here: see cv2.watershed(...)
-    # ...
     markers = np.ones(img_bgr.shape[:2], dtype=np.int32)
     markers[10:-10, 10:-10] = 0
     markers[seed_pixel] = 255
@@ -18,16 +16,13 @@ def segmentation_by_watershed(img_bgr: np.ndarray, seed_pixel: tp.Tuple[int, int
 
 def contour_based_segmentation(img_gray: np.ndarray, seed_pixel: tp.Tuple[int, int]) -> np.ndarray:
     """Segment the image by considering contours derived from edges."""
-    # Your code here: see cv2.Canny(...) and cv2.findContours(...).
-    # ...
     img_edges = cv2.Canny(img_gray, threshold1=100, threshold2=200, apertureSize=3)
     contours, hierarchy = cv2.findContours(img_edges, mode=cv2.RETR_EXTERNAL, method=cv2.CHAIN_APPROX_SIMPLE)
 
     # Select only the contour containing the seed point
     for contour in contours:
         region_mask = np.zeros_like(img_gray)
-        # Your code here: Draw the contour and its interior on the mask (see `cv2.drawContours(...)`)
-        # ...
+        # Draw the contour and its interior on the mask
         region_mask = cv2.drawContours(region_mask, [contour], contourIdx=-1, color=255, thickness=-1)  # Draw Interior
         region_mask = cv2.dilate(region_mask, kernel=np.ones((3, 3)))   # Add border too
         if region_mask[seed_pixel]:

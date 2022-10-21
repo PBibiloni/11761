@@ -13,7 +13,7 @@ def segmentation_by_watershed(img_bgr: np.ndarray, seed_pixel: tp.Tuple[int, int
 
 def contour_based_segmentation(img_gray: np.ndarray, seed_pixel: tp.Tuple[int, int]) -> np.ndarray:
     """Segment the image by considering contours derived from edges."""
-    # Your code here: see cv2.Canny(...) and cv2.findContours(...).
+    # Your code here: see cv2.Canny(...) and cv2.findContours(..., mode=cv2.RETR_EXTERNAL, ...).
     # ...
     contours = []
 

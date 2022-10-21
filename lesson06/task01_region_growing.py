@@ -23,8 +23,7 @@ def region_growing_segmentation(img_gray: np.ndarray, seed_pixel: tp.Tuple[int, 
         # Your code here: Add [some of] its neighbours to the list of current pixels
         # ...
 
-        # Check for an ending condition
-        # Your code here: Add [some of] its neighbours to the list of current pixels
+        # Your code here: Check for an ending condition
         # ...
 
     return segmentation

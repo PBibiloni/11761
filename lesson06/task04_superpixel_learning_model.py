@@ -40,13 +40,11 @@ def train_and_test_model():
     # Train model
     # Your code here: use `model.fit(...)` to train the model.
     # ...
-    model.fit(X, y)
 
     # Make predictions
     # Your code here: use `model.predict(X)` to train the model.
     # ...
-    predictions_per_region = model.predict(X)
-    predictions = predictions_per_region[region_labels]
+    predictions = np.zeros(img_bgr.shape[0:2])
 
     # Better visualizations
     border_mask = region_labels != cv2.erode(region_labels.astype('uint8'), np.ones((3, 3)))
@@ -80,24 +78,11 @@ def get_geometric_features(region_labels:np.ndarray) -> np.ndarray:
         area = np.sum(region_mask)
         # Your code here: Add others (e.g. perimeter, centroid, roundness, ...)
         # ...
-        perimeter = np.sum(region_mask != cv2.erode(region_mask.astype('uint8'), np.ones((3, 3))))
-        pixel_locations = np.where(region_mask)
-        centroid_x = np.mean(pixel_locations[0])
-        centroid_y = np.mean(pixel_locations[1])
-        std_x = np.std(pixel_locations[0])
-        std_y = np.std(pixel_locations[1])
-        roundness = 4 * np.pi * area / (perimeter**2)
 
         # Store them
         features.append([
             area,
             # ...
-            perimeter,
-            centroid_x,
-            centroid_y,
-            std_x,
-            std_y,
-            roundness,
         ])
 
     # Output as a numpy array indexed as [region_idx, feature_idx].
@@ -115,27 +100,11 @@ def get_photometric_features(img_bgr: np.ndarray, region_labels: np.ndarray) -> 
         max_red_value = img_bgr[region_mask, 2].max()
         # Your code here: Add others (e.g. other channels, mean values, std of values, ...)
         # ...
-        mean_red_value = np.mean(img_bgr[region_mask, 2])
-        std_red_value = np.std(img_bgr[region_mask, 2])
-        max_green_value = img_bgr[region_mask, 1].max()
-        mean_green_value = np.mean(img_bgr[region_mask, 1])
-        std_green_value = np.std(img_bgr[region_mask, 1])
-        max_blue_value = img_bgr[region_mask, 0].max()
-        mean_blue_value = np.mean(img_bgr[region_mask, 0])
-        std_blue_value = np.std(img_bgr[region_mask, 0])
 
         # Store them
         features.append([
             max_red_value,
             # ...
-            mean_red_value,
-            std_red_value,
-            max_green_value,
-            mean_green_value,
-            std_green_value,
-            max_blue_value,
-            mean_blue_value,
-            std_blue_value,
         ])
 
     # Output as a numpy array indexed as [region_idx, feature_idx].
@@ -145,4 +114,3 @@ def get_photometric_features(img_bgr: np.ndarray, region_labels: np.ndarray) -> 
 
 if __name__ == '__main__':
     train_and_test_model()
-

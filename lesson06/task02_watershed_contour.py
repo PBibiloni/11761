@@ -7,10 +7,21 @@ from matplotlib import pyplot as plt
 
 def segmentation_by_watershed(img_bgr: np.ndarray, seed_pixel: tp.Tuple[int, int]) -> np.ndarray:
     """Segment the image by considering a watershed method."""
+    # Smooth image to improve results.
+    img_smoothed = cv2.GaussianBlur(img_bgr, ksize=(5, 5), sigmaX=0)
+    # Initialize markers (mark as 0 unknown pixels, as 1 background, as 2 foreground)
     markers = np.ones(img_bgr.shape[:2], dtype=np.int32)
-    markers[10:-10, 10:-10] = 0
-    markers[seed_pixel] = 255
-    watshd = cv2.watershed(img_bgr, markers=markers)
+    offset = 30
+    sh = img_bgr.shape
+    markers[max(seed_pixel[0]-offset, 0):min(seed_pixel[0]+offset, sh[0]), max(seed_pixel[1]-offset, 0):min(seed_pixel[1]+offset, sh[1])] = 0
+    markers[seed_pixel] = 2
+    # Apply watershed transformation
+    watshd = cv2.watershed(img_smoothed, markers=markers)
+    _, axs = plt.subplots(2,2)
+    axs[0, 0].imshow(img_bgr)
+    axs[0, 1].imshow(markers*128, cmap='gray')
+    axs[1, 0].imshow(watshd, cmap='gray')
+    plt.show()
     return watshd
 
 
@@ -57,9 +68,9 @@ if __name__ == "__main__":
         subimage = np.copy(img_bgr)
         subimage[binary_image != cv2.erode(binary_image.astype('uint8'), np.ones((3, 3))), ...] = (0, 255, 0)
         cv2.line(subimage, pt1=(seed_point[1] - 5, seed_point[0] - 5), pt2=(seed_point[1] + 5, seed_point[0] + 5),
-                 color=(0, 0, 255), thickness=2)
+                 color=(0, 0, 255), thickness=1)
         cv2.line(subimage, pt1=(seed_point[1] - 5, seed_point[0] + 5), pt2=(seed_point[1] + 5, seed_point[0] - 5),
-                 color=(0, 0, 255), thickness=2)
+                 color=(0, 0, 255), thickness=1)
         ax.imshow(cv2.cvtColor(subimage, cv2.COLOR_BGR2RGB))
         ax.set_title(title)
     plt.show()

@@ -7,7 +7,14 @@ from matplotlib import pyplot as plt
 
 def segmentation_by_watershed(img_bgr: np.ndarray, seed_pixel: tp.Tuple[int, int]) -> np.ndarray:
     """Segment the image by considering a watershed method."""
-    # Your code here: see cv2.watershed(...)
+    # Your code here: Smooth image to improve results (see `cv2.GaussianBlur(...)`)
+    # ...
+
+    # Your code here: Initialize markers (mark as 0 unknown pixels, as 1 background, as 2 foreground)
+    # ...
+    markers = np.zeros(img_bgr.shape[:2], dtype=np.int32)
+
+    # Your code here: Apply watershed transformation (see `cv2.watershed(...)`)
     # ...
 
 

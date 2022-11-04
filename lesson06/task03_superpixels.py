@@ -46,6 +46,6 @@ if __name__ == "__main__":
         subimage_avrg_color = np.zeros_like(img_bgr)
         for idx_l in range(np.max(region_labels) + 1):
             subimage_avrg_color[region_labels == idx_l, ...] = np.mean(img_bgr[region_labels == idx_l, ...], axis=0)
-        axs[3+idx].imshow(cv2.cvtColor(subimage_avrg_color, cv2.COLOR_BGR2RGB))
-        axs[3+idx].set_title(title)
+        axs[len(results)+idx].imshow(cv2.cvtColor(subimage_avrg_color, cv2.COLOR_BGR2RGB))
+        axs[len(results)+idx].set_title(title)
     plt.show()

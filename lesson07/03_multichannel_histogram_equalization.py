@@ -4,12 +4,12 @@ from matplotlib import pyplot as plt
 
 
 def process_in_parallel(img: np.ndarray) -> np.ndarray:
-    """ Apply a Canny edge detector on the `best` channel. """
+    """ Apply a histogram equalization to all channels independently. """
     # YOUR CODE HERE: see cv2.dilate(...)
     # ...
 
 def process_intensity_channel_preserve_chroma(img: np.ndarray) -> np.ndarray:
-    """ Apply a Canny edge detector on the intensity channel. """
+    """ Apply a histogram equalization to intensity channel only. """
     # YOUR CODE HERE: what is the best intensity-and-chroma color space?
     # ...
 

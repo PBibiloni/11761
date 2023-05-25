@@ -9,8 +9,9 @@ from utils import sample_filepath
 
 def histogram_find_cuts(nbins: int) -> np.ndarray:
     """Sequence of limits of each bin (e.g. [0.0, 85.0, 170.0, 255.0] for 3 bins)."""
-    # YOUR CODE HERE: see `np.linspace(...)` and `np.arange(...)`.
-    # ...
+    # YOUR CODE HERE:
+    #   See `np.linspace(...)` and `np.arange(...)`.
+    #   ...
 
 
 def histogram_count_values(image: np.ndarray, nbins: int) -> np.ndarray:
@@ -21,13 +22,14 @@ def histogram_count_values(image: np.ndarray, nbins: int) -> np.ndarray:
         for j in range(size_y):
             value = image[i, j]
             # YOUR CODE HERE
-            # ...
+            #   ...
 
 
 def histogram_plot(image: np.ndarray, nbins) -> None:
     """Plots a histogram of a grayscale image."""
-    # YOUR CODE HERE: You can use a bar plot `plt.bar(...)`
-    # ...
+    # YOUR CODE HERE:
+    #   Use a bar plot `plt.bar(...)`.
+    #   ...
 
 
 if __name__ == '__main__':

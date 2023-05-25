@@ -15,8 +15,9 @@ def binarize_by_hysteresis(img: np.ndarray, low_threshold: float, high_threshold
     _, label_img = cv2.connectedComponents(binary_img.astype('uint8'))
     labels = np.unique(label_img)
     for label in labels:
-        # YOUR CODE HERE: see `np.any(...)` and `np.all(...)`.
-        # ...
+        # YOUR CODE HERE:
+        #   See `np.any(...)` and `np.all(...)`.
+        #   ...
         if label == 0:
             # Ignore label of background
             pass
@@ -28,7 +29,7 @@ def binarize_by_hysteresis(img: np.ndarray, low_threshold: float, high_threshold
 def object_area(binary_img: np.ndarray) -> np.ndarray:
     """Returns the area of one object, passed as a binary image that contains only one connected component."""
     # YOUR CODE HERE:
-    # ...
+    #   ...
     return np.sum(binary_img)
 
 
@@ -40,7 +41,7 @@ def object_centroid(binary_img: np.ndarray) -> tp.Tuple[float, float]:
     for x in range(binary_img.shape[0]):
         for y in range(binary_img.shape[1]):
             # YOUR CODE HERE
-            # ...
+            #   ...
             centroid_x += x * binary_img[x, y]
             centroid_y += y * binary_img[x, y]
     m00 = object_area(binary_img)
@@ -56,7 +57,7 @@ def largest_object(binary_img: np.ndarray) -> np.ndarray:
     largest_object_pixels = 0
     for label in range(np.max(label_img)+1):
         # YOUR CODE HERE:
-        # ...
+        #   ...
         if label == 0:
             # Ignore label of background
             pass
@@ -70,8 +71,9 @@ def largest_object(binary_img: np.ndarray) -> np.ndarray:
 
 def most_centered_object(binary_img: np.ndarray) -> np.ndarray:
     """Returns a binary image with only the most centered connected component."""
-    # YOUR CODE HERE: see `cv2.ConnectedComponentsTypes`
-    # ...
+    # YOUR CODE HERE:
+    #   See `cv2.ConnectedComponentsTypes`
+    #   ...
     _, label_img = cv2.connectedComponents(binary_img.astype('uint8'))
     object_distance_to_center = np.inf
     object_label = 0
@@ -109,7 +111,7 @@ if __name__ == "__main__":
         plt.show()
 
     # Visualize CC properties
-    image = task01.binarize_by_otsu(cv2.imread("../samples/dots.tiff", cv2.IMREAD_GRAYSCALE))
+    image = task01.binarize_by_otsu(cv2.imread(sample_filepath('dots.tiff'), cv2.IMREAD_GRAYSCALE))
     largest_object_img = largest_object(image)
     most_centered_object_img = most_centered_object(image)
 

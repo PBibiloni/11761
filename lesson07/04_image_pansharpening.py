@@ -7,8 +7,9 @@ from utils import sample_filepath
 
 def pansharpen_mean(panchromatic_img: np.ndarray, r_image: np.ndarray, g_image: np.ndarray, b_image: np.ndarray) -> np.ndarray:
     """ Return RGB pansharpened image using the "simple mean" method. """
-    # YOUR CODE HERE: see cv2.resize(...)
-    # ...
+    # YOUR CODE HERE:
+    #   See cv2.resize(...)
+    #   ...
     # Upsize images
     r_in = cv2.resize(r_image, (panchromatic_img.shape[1], panchromatic_img.shape[0]))
     g_in = cv2.resize(g_image, (panchromatic_img.shape[1], panchromatic_img.shape[0]))
@@ -24,7 +25,7 @@ def pansharpen_mean(panchromatic_img: np.ndarray, r_image: np.ndarray, g_image: 
 def panshapen_Brovey(panchromatic_img: np.ndarray, r_image: np.ndarray, g_image: np.ndarray, b_image: np.ndarray) -> np.ndarray:
     """ Return RGB pansharpened image using the Brovey method. """
     # YOUR CODE HERE
-    # ...
+    #   ...
     # Upsize images
     r_in = cv2.resize(r_image, (panchromatic_img.shape[1], panchromatic_img.shape[0])).astype('float')
     g_in = cv2.resize(g_image, (panchromatic_img.shape[1], panchromatic_img.shape[0])).astype('float')
@@ -41,8 +42,9 @@ def panshapen_Brovey(panchromatic_img: np.ndarray, r_image: np.ndarray, g_image:
 
 def pansharpen_replace_intensity(panchromatic_img: np.ndarray, r_image: np.ndarray, g_image: np.ndarray, b_image: np.ndarray) -> np.ndarray:
     """ Return RGB pansharpened image replacing the intensity, and preserving chromatic information. """
-    # YOUR CODE HERE: what is the best "intensity" channel?
-    # ...
+    # YOUR CODE HERE:
+    #   What is the best "intensity" channel?
+    #   ...
     # Upsize images
     r_in = cv2.resize(r_image, (panchromatic_img.shape[1], panchromatic_img.shape[0]))
     g_in = cv2.resize(g_image, (panchromatic_img.shape[1], panchromatic_img.shape[0]))

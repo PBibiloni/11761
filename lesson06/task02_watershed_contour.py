@@ -9,20 +9,23 @@ from utils import sample_filepath
 
 def segmentation_by_watershed(img_bgr: np.ndarray, seed_pixel: tp.Tuple[int, int]) -> np.ndarray:
     """Segment the image by considering a watershed method."""
-    # Your code here: Smooth image to improve results.
-    # ...
+    # YOUR CODE HERE:
+    #   Smooth image to improve results.
+    #   ...
     img_smoothed = cv2.GaussianBlur(img_bgr, ksize=(5, 5), sigmaX=0)
 
-    # Your code here: initialize markers
-    #                 0 for unknown pixels, 1 for background pixels, 2 for foreground pixels)
+    # YOUR CODE HERE:
+    #   Initialize markers
+    #   (0 for unknown pixels, 1 for background pixels, 2 for foreground pixels)
     markers = np.ones(img_bgr.shape[:2], dtype=np.int32)
     offset = 30
     sh = img_bgr.shape
     markers[max(seed_pixel[0]-offset, 0):min(seed_pixel[0]+offset, sh[0]), max(seed_pixel[1]-offset, 0):min(seed_pixel[1]+offset, sh[1])] = 0
     markers[seed_pixel] = 2
-    # Your code here: apply watershed transformation
-    #                 see cv2.watershed(...)
-    # ...
+    # YOUR CODE HERE:
+    #   Apply watershed transformation.
+    #   See `cv2.watershed(...)`.
+    #   ...
     watshd = cv2.watershed(img_smoothed, markers=markers)
     _, axs = plt.subplots(2,2)
     axs[0, 0].imshow(img_bgr)
@@ -35,16 +38,18 @@ def segmentation_by_watershed(img_bgr: np.ndarray, seed_pixel: tp.Tuple[int, int
 def contour_based_segmentation(img_gray: np.ndarray, seed_pixel: tp.Tuple[int, int]) -> np.ndarray:
     """Segment the image by considering contours derived from edges."""
     contours = []
-    # Your code here: see cv2.Canny(...) and cv2.findContours(...).
-    # ...
+    # YOUR CODE HERE:
+    #   See `cv2.Canny(...)` and `cv2.findContours(...)`.
+    #   ...
     img_edges = cv2.Canny(img_gray, threshold1=100, threshold2=200, apertureSize=3)
     contours, hierarchy = cv2.findContours(img_edges, mode=cv2.RETR_EXTERNAL, method=cv2.CHAIN_APPROX_SIMPLE)
 
     # Select only the contour containing the seed point
     for contour in contours:
         region_mask = np.zeros_like(img_gray)
-        # Your code here: Draw the contour and its interior on the mask (see `cv2.drawContours(...)`)
-        # ...
+        # YOUR CODE HERE:
+        #   Draw the contour and its interior on the mask (see `cv2.drawContours(...)`)
+        #   ...
         region_mask = cv2.drawContours(region_mask, [contour], contourIdx=-1, color=255, thickness=-1)  # Draw Interior
         region_mask = cv2.dilate(region_mask, kernel=np.ones((3, 3)))   # Add border too
         if region_mask[seed_pixel]:

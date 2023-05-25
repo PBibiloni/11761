@@ -7,8 +7,9 @@ from utils import sample_filepath
 
 def superpixels_LSC(img_bgr: np.ndarray) -> np.ndarray:
     """ Returns a label image corresponding to the superpixels created according to the LSC algorithm. """
-    # Your code here: see class `cv2.ximgproc.createSuperpixelLSC`, and its methods `iterate(...)` and `getLabels(...)`
-    # ...
+    # YOUR CODE HERE:
+    #   See class `cv2.ximgproc.createSuperpixelLSC`, and its methods `iterate(...)` and `getLabels(...)`.
+    #   ...
     lsc = cv2.ximgproc.createSuperpixelLSC(img_bgr, region_size=50, ratio=0.075)
     lsc.iterate(num_iterations=5)
     return lsc.getLabels()
@@ -16,8 +17,9 @@ def superpixels_LSC(img_bgr: np.ndarray) -> np.ndarray:
 
 def superpixels_SEEDS(img_bgr: np.ndarray) -> np.ndarray:
     """ Returns a label image corresponding to the superpixels created according to the SEEDS algorithm. """
-    # Your code here: see class `cv2.ximgproc.createSuperpixelSEEDS`, and its methods `iterate(...)` and `getLabels(...)`
-    # ...
+    # YOUR CODE HERE:
+    #   See class `cv2.ximgproc.createSuperpixelSEEDS`, and its methods `iterate(...)` and `getLabels(...)`.
+    #   ...
     sh = img_bgr.shape
     seeds = cv2.ximgproc.createSuperpixelSEEDS(image_width=sh[1], image_height=sh[0], image_channels=sh[2], num_superpixels=150, num_levels=4)
     seeds.iterate(img=img_bgr, num_iterations=5)
@@ -26,8 +28,9 @@ def superpixels_SEEDS(img_bgr: np.ndarray) -> np.ndarray:
 
 def superpixels_SLIC(img_bgr: np.ndarray) -> np.ndarray:
     """ Returns a label image corresponding to the superpixels created according to the SLIC algorithm. """
-    # Your code here: see class `cv2.ximgproc.createSuperpixelSLIC`, and its methods `iterate(...)` and `getLabels(...)`
-    # ...
+    # YOUR CODE HERE:
+    #   See class `cv2.ximgproc.createSuperpixelSLIC`, and its methods `iterate(...)` and `getLabels(...)`.
+    #   ...
     seeds = cv2.ximgproc.createSuperpixelSLIC(img_bgr, region_size=30, ruler=3)
     seeds.iterate(num_iterations=5)
     return seeds.getLabels()

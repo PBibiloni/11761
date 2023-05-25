@@ -7,17 +7,19 @@ from utils import sample_filepath
 
 def find_edges(img_gray: np.ndarray) -> np.ndarray:
     """Adjust the Canny edge detector to find the edges in one image."""
-    # Your code here: see `cv2.Canny(img_gray, ...)` with the `img_gray` as input.
-    # ...
+    # YOUR CODE HERE:
+    #   See `cv2.Canny(img_gray, ...)` with the `img_gray` as input.
+    #   ...
     img_edges = cv2.Canny(img_gray, threshold1=100, threshold2=200, apertureSize=3)
     return img_edges
 
 
 def find_corners(img_gray: np.ndarray) -> np.ndarray:
     """Adjust the Harris corner detector to find the corners in one image."""
-    # Your code here: see `cv2.cornerHarris(img_gray, ...)` with the `img_gray` as input.
-    #                 use `cv2.dilate(...)` to remove non-local maxima.
-    # ...
+    # YOUR CODE HERE: 
+    #   See `cv2.cornerHarris(img_gray, ...)` with the `img_gray` as input.
+    #   Use `cv2.dilate(...)` to remove non-local maxima.
+    #   ...
     # Create a `corner` value for each pixel
     corner_map = cv2.cornerHarris(img_gray, blockSize=5, ksize=3, k=0.1)
     # Set img_corners[x, y] = 255 if (x, y) is local maxima, set to 0 otherwise

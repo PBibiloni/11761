@@ -30,13 +30,15 @@ def train_and_test_model():
     random_selection = np.concatenate([random_selection_positives, random_selection_negatives])
     X_train = X[random_selection, :]
     y_train = y[random_selection]
-    # Your code here: use `model.fit(X, y)` to train the model.
-    # ...
+    # YOUR CODE HERE:
+    #   Use `model.fit(X, y)` to train the model.
+    #   ...
     model.fit(X_train, y_train)
 
     # Make predictions
-    # Your code here: use `model.predict(X)` to train the model.
-    # ...
+    # YOUR CODE HERE:
+    #   Use `model.predict(X)` to train the model.
+    #   ...
     predictions = np.zeros_like(y)  # You may delete this line.
     predictions = model.predict(X).reshape(img.shape)
 
@@ -74,8 +76,8 @@ def features_gabor_filter_bank(img):
 
 def features_eigenvalues_hessian(img):
     """Computes features based on the eigenvalues of the Hessian matrix."""
-    # Your code here
-    # ...
+    # YOUR CODE HERE
+    #   ...
     hessian_dxdx = cv2.Sobel(img, cv2.CV_32F, 2, 0, ksize=3)
     hessian_dxdy = cv2.Sobel(img, cv2.CV_32F, 1, 1, ksize=3)
     hessian_dydx = hessian_dxdy

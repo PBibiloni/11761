@@ -8,7 +8,7 @@ from utils import sample_filepath
 def binarize_by_thresholding(img: np.ndarray, threshold: float) -> np.ndarray:
     """Returns a binary version of the image by applying a thresholding operation."""
     # YOUR CODE HERE
-    # ...
+    #   ...
     return (img >= threshold)*255
 
 
@@ -17,8 +17,9 @@ def binarize_by_otsu(img: np.ndarray) -> np.ndarray:
     otsu_threshold = 0
     lowest_criteria = np.inf
     for threshold in range(255):
-        # YOUR CODE HERE: You can assume that img ranges from 0 to 255.
-        # ...
+        # YOUR CODE HERE:
+        #   Assume that img ranges from 0 to 255.
+        #   ...
         thresholded_im = img >= threshold
         # compute weights
         weight1 = np.sum(thresholded_im) / img.size
@@ -46,8 +47,9 @@ def binarize_by_dithering(img: np.ndarray) -> np.ndarray:
     out = np.zeros_like(img)
     for i in range(img.shape[0]):
         for j in range(img.shape[1]):
-            # YOUR CODE HERE: You can assume that img ranges from 0 to 255.
-            # ...
+            # YOUR CODE HERE:
+            #   Assume that img ranges from 0 to 255.
+            #   ...
             value = padded_img[i, j]
             if value > 127:
                 out[i, j] = 255

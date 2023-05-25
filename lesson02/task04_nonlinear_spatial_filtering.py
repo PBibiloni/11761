@@ -15,8 +15,9 @@ def median_filter(image: np.ndarray, filter_size: Tuple[int, int]) -> np.ndarray
     out = np.zeros(shape=(out_sz_x, out_sz_y), dtype=image.dtype)
     for i in range(out_sz_x):
         for j in range(out_sz_y):
-            # YOUR CODE HERE: see `np.median(...)`
-            # ...
+            # YOUR CODE HERE:
+            #   See `np.median(...)`.
+            #   ...
             values = image[i:i + (filter_size[0]-1), j:j + (filter_size[1]-1)]
             out[i, j] = np.median(values)
     return out
@@ -30,8 +31,9 @@ def max_pooling(image: np.ndarray, pool_size: Tuple[int, int]) -> np.ndarray:
     out = np.zeros(shape=(out_sz_x, out_sz_y), dtype=image.dtype)
     for i in range(out_sz_x):
         for j in range(out_sz_y):
-            # YOUR CODE HERE: see `np.max(...)`
-            # ...
+            # YOUR CODE HERE:
+            #   See `np.max(...)`.
+            #   ...
             values = image[i*pool_size[0]:(i+1)*pool_size[0], j*pool_size[1]:(j+1)*pool_size[1]]
             out[i, j] = np.max(values)
     return out

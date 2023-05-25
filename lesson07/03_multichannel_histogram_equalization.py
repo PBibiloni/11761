@@ -7,13 +7,15 @@ from utils import sample_filepath
 
 def process_in_parallel(img: np.ndarray) -> np.ndarray:
     """ Apply a histogram equalization to all channels independently. """
-    # YOUR CODE HERE: see cv2.dilate(...)
-    # ...
+    # YOUR CODE HERE:
+    #   See cv2.dilate(...)
+    #   ...
 
 def process_intensity_channel_preserve_chroma(img: np.ndarray) -> np.ndarray:
     """ Apply a histogram equalization to intensity channel only. """
-    # YOUR CODE HERE: what is the best intensity-and-chroma color space?
-    # ...
+    # YOUR CODE HERE:
+    #   What is the best intensity-and-chroma color space?
+    #   ...
 
 
 if __name__ == "__main__":

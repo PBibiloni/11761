@@ -9,8 +9,9 @@ from utils import sample_filepath
 
 def gaussian_pyramid(img: np.ndarray, levels: int) -> tp.List[np.ndarray]:
     """Returns a Gaussian pyramid of the image."""
-    # Your code here: see `cv.pyrDown(...)`
-    # ...
+    # YOUR CODE HERE:
+    #   See `cv.pyrDown(...)`
+    #   ...
     pyramid = [img]
     for _ in range(levels-1):
         pyramid.append(cv2.pyrDown(pyramid[-1]))
@@ -19,8 +20,9 @@ def gaussian_pyramid(img: np.ndarray, levels: int) -> tp.List[np.ndarray]:
 
 def laplacian_pyramid(img: np.ndarray, levels: int) -> tp.List[np.ndarray]:
     """Returns a Laplacian pyramid of the image."""
-    # Your code here: see `cv.pyrDown(...)` and `cv.pyrUp(...)`
-    # ...
+    # YOUR CODE HERE:
+    #   See `cv.pyrDown(...)` and `cv.pyrUp(...)`
+    #   ...
     g_pyramid = gaussian_pyramid(img, levels)
     l_pyramid = []
     for idx in range(levels-1):
@@ -31,8 +33,9 @@ def laplacian_pyramid(img: np.ndarray, levels: int) -> tp.List[np.ndarray]:
 
 def reconstruct_from_laplacian_pyramid(l_pyramid: tp.List[np.ndarray]) -> np.ndarray:
     """Reconstructs an image from its Laplacian pyramid."""
-    # Your code here: see `cv.pyrUp(...)`, and start from the smallest layer.
-    # ...
+    # YOUR CODE HERE:
+    #   See `cv.pyrUp(...)`, and start from the smallest layer.
+    #   ...
     img = l_pyramid[-1]
     for level in range(len(l_pyramid)-2, -1, -1):
         img = cv2.pyrUp(img) + l_pyramid[level]

@@ -25,9 +25,10 @@ def train_and_test_model():
     X = get_geometric_features(region_labels)
     # or X = get_photometric_features(img_bgr, region_labels)
     # or X = np.concatenate([get_geometric_features(region_labels), get_photometric_features(img_bgr, region_labels)], axis=1)
-    # Your code here: why features X work better?
-    # ...
-    X = np.concatenate([get_geometric_features(region_labels)
+    # YOUR CODE HERE:
+    #   What features will work better?
+    #   ...
+    X = np.concatenate([get_geometric_features(region_labels)])
 
     # Get labels
     positives_per_region = []
@@ -43,14 +44,16 @@ def train_and_test_model():
     # or model = RandomForestClassifier()
 
     # Train model
-    # Your code here: use `model.fit(...)` to train the model.
-    # ...
+    # YOUR CODE HERE:
+    #   Use `model.fit(...)` to train the model.
+    #   ...
     model.fit(X, y)
 
     # Make predictions
     predictions = np.zeros(img_bgr.shape[0:2])  # You may delete this line
-    # Your code here: use `model.predict(X)` to train the model.
-    # ...
+    # YOUR CODE HERE:
+    #   Use `model.predict(X)` to train the model.
+    #   ...
     predictions_per_region = model.predict(X)
     predictions = predictions_per_region[region_labels]
 
@@ -84,8 +87,9 @@ def get_geometric_features(region_labels:np.ndarray) -> np.ndarray:
 
         # Compute geometric features for this region.
         area = np.sum(region_mask)
-        # Your code here: Add other features (e.g. perimeter, centroid, roundness, ...)
-        # ...
+        # YOUR CODE HERE:
+        #   Add other features (e.g. perimeter, centroid, roundness, ...)
+        #   ...
         perimeter = np.sum(region_mask != cv2.erode(region_mask.astype('uint8'), np.ones((3, 3))))
         pixel_locations = np.where(region_mask)
         centroid_x = np.mean(pixel_locations[0])
@@ -97,8 +101,9 @@ def get_geometric_features(region_labels:np.ndarray) -> np.ndarray:
         # Store them
         features.append([
             area,
-            # Your code here: append all features
-            # ...
+            # YOUR CODE HERE:
+            #   Append all features
+            #   ...
             perimeter,
             centroid_x,
             centroid_y,
@@ -120,8 +125,9 @@ def get_photometric_features(img_bgr: np.ndarray, region_labels: np.ndarray) -> 
 
         # Compute photometric features for this region.
         max_red_value = img_bgr[region_mask, 2].max()
-        # Your code here: Add more features (e.g. other channels, mean values, std of values, ...)
-        # ...
+        # YOUR CODE HERE:
+        #   Add more features (e.g. other channels, mean values, std of values, ...)
+        #   ...
         mean_red_value = np.mean(img_bgr[region_mask, 2])
         std_red_value = np.std(img_bgr[region_mask, 2])
         max_green_value = img_bgr[region_mask, 1].max()
@@ -134,8 +140,9 @@ def get_photometric_features(img_bgr: np.ndarray, region_labels: np.ndarray) -> 
         # Store them
         features.append([
             max_red_value,
-            # Your code here: append all features
-            # ...
+            # YOUR CODE HERE:
+            #   Append all features
+            #   ...
             mean_red_value,
             std_red_value,
             max_green_value,

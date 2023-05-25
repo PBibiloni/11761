@@ -12,9 +12,10 @@ def hough_lines():
     img = cv2.imread(sample_filepath('logo.png'), cv2.IMREAD_COLOR)
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img_edges = cv2.Canny(img_gray, 100, 200)
-    # Your code here: use `cv2.HoughLines(img_edges, ...)` with the `img_edges` as input.
-    #                 use `cv2.line(img, ...)` to draw the lines on the original image `img`.
-    # ...
+    # YOUR CODE HERE:
+    #   Use `cv2.HoughLines(img_edges, ...)` with the `img_edges` as input.
+    #   Use `cv2.line(img, ...)` to draw the lines on the original image `img`.
+    #   ...
     lines = cv2.HoughLines(img_edges, rho=1, theta=np.pi/60, threshold=150)
     if lines is not None:
         for line in lines:
@@ -46,9 +47,10 @@ def hough_circles():
     img = cv2.imread(sample_filepath('dots.tiff'), cv2.IMREAD_COLOR)
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img_edges = cv2.Canny(img_gray, 100, 200)
-    # Your code here: see `cv.HoughCircles(img_edges, ...)` with the `img_edges` as input.
-    #                 use `cv2.circle(img, ...)` to draw the circles on the original image `img`.
-    # ...
+    # YOUR CODE HERE:
+    #   See `cv.HoughCircles(img_edges, ...)` with the `img_edges` as input.
+    #   Use `cv2.circle(img, ...)` to draw the circles on the original image `img`.
+    #   ...
     circles = cv2.HoughCircles(img_edges, method=cv2.HOUGH_GRADIENT, dp=1,
                                minDist=img_edges.shape[0] // 16,
                                param2=20, minRadius=1, maxRadius=img_edges.shape[0] // 8)

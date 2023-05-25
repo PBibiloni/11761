@@ -12,7 +12,7 @@ def gaussian_pyramid(img: np.ndarray, levels: int) -> tp.List[np.ndarray]:
     # Your code here: see `cv.pyrDown(...)`
     # ...
     pyramid = [img]
-    for _ in range(levels):
+    for _ in range(levels-1):
         pyramid.append(cv2.pyrDown(pyramid[-1]))
     return pyramid
 

@@ -25,6 +25,9 @@ def train_and_test_model():
     X = get_geometric_features(region_labels)
     # or X = get_photometric_features(img_bgr, region_labels)
     # or X = np.concatenate([get_geometric_features(region_labels), get_photometric_features(img_bgr, region_labels)], axis=1)
+    # Your code here: why features X work better?
+    # ...
+    X = np.concatenate([get_geometric_features(region_labels)
 
     # Get labels
     positives_per_region = []
@@ -81,7 +84,7 @@ def get_geometric_features(region_labels:np.ndarray) -> np.ndarray:
 
         # Compute geometric features for this region.
         area = np.sum(region_mask)
-        # Your code here: Add others (e.g. perimeter, centroid, roundness, ...)
+        # Your code here: Add other features (e.g. perimeter, centroid, roundness, ...)
         # ...
         perimeter = np.sum(region_mask != cv2.erode(region_mask.astype('uint8'), np.ones((3, 3))))
         pixel_locations = np.where(region_mask)
@@ -94,6 +97,7 @@ def get_geometric_features(region_labels:np.ndarray) -> np.ndarray:
         # Store them
         features.append([
             area,
+            # Your code here: append all features
             # ...
             perimeter,
             centroid_x,
@@ -116,7 +120,7 @@ def get_photometric_features(img_bgr: np.ndarray, region_labels: np.ndarray) -> 
 
         # Compute photometric features for this region.
         max_red_value = img_bgr[region_mask, 2].max()
-        # Your code here: Add others (e.g. other channels, mean values, std of values, ...)
+        # Your code here: Add more features (e.g. other channels, mean values, std of values, ...)
         # ...
         mean_red_value = np.mean(img_bgr[region_mask, 2])
         std_red_value = np.std(img_bgr[region_mask, 2])
@@ -130,6 +134,7 @@ def get_photometric_features(img_bgr: np.ndarray, region_labels: np.ndarray) -> 
         # Store them
         features.append([
             max_red_value,
+            # Your code here: append all features
             # ...
             mean_red_value,
             std_red_value,

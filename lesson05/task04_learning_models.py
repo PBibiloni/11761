@@ -16,7 +16,7 @@ def train_and_test_model():
     #   Initialize the features (X) as one of the following (which is better?):
     #   >> X = features_gabor_filter_bank(img), or
     #   >> X = features_eigenvalues_hessian(img), or
-    #   >> X = features_hog(img), orX = np.concatenate([features_gabor_filter_bank(img), features_eigenvalues_hessian(img)], axis=1)
+    #   >> X = np.concatenate([features_gabor_filter_bank(img), features_eigenvalues_hessian(img)], axis=1).
     #   ...
     X = np.zeros((img.shape[0]*img.shape[1], 1))  # Features initialized as a single 0-vector (delete this line)
 

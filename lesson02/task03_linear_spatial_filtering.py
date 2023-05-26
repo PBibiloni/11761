@@ -60,7 +60,7 @@ def kernel_sobel_horizontal() -> np.ndarray:
     """Returns the sobel operator for horizontal derivatives. """
     # YOUR CODE HERE
     #   ...
-    sobel = np.array([[1, 0, -1], [2, 0, -2], [1, 0, -1]], dtype=np.float)/8
+    sobel = np.array([[1, 0, -1], [2, 0, -2], [1, 0, -1]], dtype=float)/8
     return sobel
 
 
@@ -76,7 +76,7 @@ def kernel_LoG_filter() -> np.ndarray:
     """Returns a 3x3 kernel for the Laplacian of Gaussian filter."""
     # YOUR CODE HERE
     #   ...
-    log = np.array([[0, 1, 0], [1, -4, 1], [0, 1, 0]], dtype=np.float)
+    log = np.array([[0, 1, 0], [1, -4, 1], [0, 1, 0]], dtype=float)
     return log
 
 

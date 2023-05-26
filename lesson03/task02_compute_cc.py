@@ -21,24 +21,8 @@ def label_connected_components(binary_img: np.ndarray) -> np.ndarray:
                     previous_labels.append(label_img[i, j-1])
 
                 # YOUR CODE HERE:
+                #   Label each pixel and create a collision dictionary.
                 #   ...
-                if len(previous_labels) == 0:
-                    # No labelled neighbours: create a new label
-                    label_img[i, j] = np.max(label_img) + 1
-                elif len(previous_labels) == 1:
-                    # One labelled neighbour: use their label
-                    label_img[i, j] = min(previous_labels)
-                else:
-                    # Multiple labelled neighbours
-                    # Find minimum label in current connected component.
-                    representative_label = min(previous_labels)
-                    for label in previous_labels:
-                        if label in collisions:
-                            representative_label = min(representative_label, collisions[label])
-                    # Assign current pixel and update collisions dictionary.
-                    label_img[i, j] = representative_label
-                    for label in previous_labels:
-                        collisions[label] = representative_label
 
     # Make collision dictionary transitive.
     for label in range(np.max(label_img)):  # Ordered lookup is important here.
@@ -52,7 +36,8 @@ def label_connected_components(binary_img: np.ndarray) -> np.ndarray:
     for label, min_label_in_same_cc in collisions.items():
         # YOUR CODE HERE:
         #   ...
-        label_img[label_img == label] = min_label_in_same_cc
+        pass
+
     return label_img
 
 

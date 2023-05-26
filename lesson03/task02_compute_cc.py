@@ -21,6 +21,7 @@ def label_connected_components(binary_img: np.ndarray) -> np.ndarray:
                     previous_labels.append(label_img[i, j-1])
 
                 # YOUR CODE HERE:
+                #   Label each pixel and create a collision dictionary.
                 #   ...
                 if len(previous_labels) == 0:
                     # No labelled neighbours: create a new label

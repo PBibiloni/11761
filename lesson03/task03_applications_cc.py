@@ -53,7 +53,7 @@ def object_centroid(binary_img: np.ndarray) -> tp.Tuple[float, float]:
 def largest_object(binary_img: np.ndarray) -> np.ndarray:
     """Returns a binary image with only the largest connected component."""
     _, label_img = cv2.connectedComponents(binary_img.astype('uint8'))
-    largest_object_label = None
+    largest_object_label = -1
     largest_object_pixels = 0
     for label in range(np.max(label_img)+1):
         # YOUR CODE HERE:
@@ -72,7 +72,7 @@ def largest_object(binary_img: np.ndarray) -> np.ndarray:
 def most_centered_object(binary_img: np.ndarray) -> np.ndarray:
     """Returns a binary image with only the most centered connected component."""
     # YOUR CODE HERE:
-    #   See `cv2.ConnectedComponentsTypes`
+    #   See `cv2.ConnectedComponentsTypes(...)`.
     #   ...
     _, label_img = cv2.connectedComponents(binary_img.astype('uint8'))
     object_distance_to_center = np.inf

@@ -25,7 +25,7 @@ def erosion(img: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
 def opening(img: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
     """Returns the opening of the binary/grayscale image with the given structuring element."""
     # YOUR CODE HERE:
-    #   Reuse functions `dilation` and `erosion`
+    #   Reuse functions `dilation(...)` and `erosion(...)`.
     #   ...
     return dilation(erosion(img, structuring_element), np.flip(structuring_element))
 
@@ -33,7 +33,7 @@ def opening(img: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
 def closing(img: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
     """Returns the closing of the binary/grayscale image with the given structuring element."""
     # YOUR CODE HERE:
-    #   Use functions `dilation` and `erosion`
+    #   Reuse functions `dilation(...)` and `erosion(...)`.
     #   ...
     return erosion(dilation(img, structuring_element), np.flip(structuring_element))
 

@@ -99,12 +99,12 @@ if __name__ == '__main__':
     kernels = {k: v for k, v in kernels.items() if v is not None}  # Remove None values.
 
     for name, kernel in kernels.items():
-        output = cv2.filter2D(src=img, ddepth=-1, kernel=kernel)
+        output = cv2.filter2D(src=img, ddepth=-1, kernel=kernel)  # ddepth=-1 means same as input
         # Visualize images
         fig, axs = plt.subplots(1, 2)
         axs[0].set_title(name)
         im = axs[0].imshow(kernel, cmap='gray')
         plt.colorbar(im, ax=axs[0])
-        axs[1].imshow(output, cmap='gray')  # ddpeth=-1 means same as input
+        axs[1].imshow(output, cmap='gray')
         # Display figure
         plt.show()

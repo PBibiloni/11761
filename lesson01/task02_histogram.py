@@ -31,7 +31,7 @@ def histogram_count_values(image: np.ndarray, nbins: int) -> np.ndarray:
 def histogram_plot(image: np.ndarray, nbins) -> None:
     """Plots a histogram of a grayscale image."""
     # YOUR CODE HERE:
-    #   Use a bar plot `plt.bar(...)`.
+    #   Use a bar plot `plt.bar(...)`, and show it `plt.show(...)`.
     #   ...
     cuts = histogram_find_cuts(nbins=nbins)
     values = histogram_count_values(image, nbins=nbins)

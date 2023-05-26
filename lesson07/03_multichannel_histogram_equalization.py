@@ -10,12 +10,6 @@ def process_in_parallel(img: np.ndarray) -> np.ndarray:
     # YOUR CODE HERE:
     #   Remember `cv2.equalizeHist(...)`.
     #   ...
-    result = np.zeros_like(img)
-    for idx in range(img.shape[2]):
-        channel = img[:, :, idx]
-        channel = cv2.equalizeHist(channel)
-        result[:, :, idx] = channel
-    return result
 
 
 def process_intensity_channel_preserve_chroma(img: np.ndarray) -> np.ndarray:
@@ -23,9 +17,6 @@ def process_intensity_channel_preserve_chroma(img: np.ndarray) -> np.ndarray:
     # YOUR CODE HERE:
     #   What is the best intensity-and-chroma color space?
     #   ...
-    img_lab = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
-    img_lab[:, :, 0] = cv2.equalizeHist(img_lab[:, :, 0])
-    return cv2.cvtColor(img_lab, cv2.COLOR_LAB2BGR)
 
 
 if __name__ == "__main__":

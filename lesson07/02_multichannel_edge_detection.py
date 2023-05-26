@@ -11,7 +11,6 @@ def process_on_best_channel(img_bgr: np.ndarray) -> np.ndarray:
     # YOUR CODE HERE:
     #   Remember `cv2.Canny(...)`.
     #   ...
-    return cv2.Canny(best_channel, 100, 200)
 
 
 def process_on_intensity_channel(img_bgr: np.ndarray) -> np.ndarray:
@@ -19,8 +18,6 @@ def process_on_intensity_channel(img_bgr: np.ndarray) -> np.ndarray:
     # YOUR CODE HERE:
     #   What is the best `intensity` channel?
     #   ...
-    img_lab = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2LAB)
-    return cv2.Canny(img_lab[:, :, 0], 100, 200)
 
 
 def parallel_channels_then_combine(img_bgr: np.ndarray) -> np.ndarray:
@@ -28,10 +25,6 @@ def parallel_channels_then_combine(img_bgr: np.ndarray) -> np.ndarray:
     # YOUR CODE HERE:
     #   See cv2.bitwise_or(...), cv2.bitwise_and(...)
     #   ...
-    all_edges = np.zeros(shape=img_bgr.shape[:2], dtype=img_bgr.dtype)
-    for band in range(img_bgr.shape[-1]):
-        all_edges = np.bitwise_or(all_edges, cv2.Canny(img_bgr[:, :, band], 100, 200))
-    return all_edges
 
 
 if __name__ == "__main__":

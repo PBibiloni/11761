@@ -10,7 +10,6 @@ def discrete_cosinus_transform(img: np.ndarray) -> np.ndarray:
     # YOUR CODE HERE:
     #   See `cv2.dct(...)`, assume img ranges from 0 to 1.
     #   ...
-    return cv2.dct(img)
 
 
 def invert_discrete_consinus_transform(img: np.ndarray) -> np.ndarray:
@@ -18,30 +17,18 @@ def invert_discrete_consinus_transform(img: np.ndarray) -> np.ndarray:
     # YOUR CODE HERE:
     #   See `cv2.dct(..., flags=...)`
     #   ...
-    return cv2.dct(img, flags=cv2.DCT_INVERSE)
 
 
 def remove_last_coefficients(dct_coefficients: np.ndarray, remove_since_x: int, remove_since_y: int) -> np.ndarray:
     """Returns the dct coefficients of the image."""
     # YOUR CODE HERE:
     #   ...
-    removed_dct_coefficients = np.copy(dct_coefficients)
-    removed_dct_coefficients[remove_since_x:, :] = 0
-    removed_dct_coefficients[:, remove_since_y:] = 0
-    return removed_dct_coefficients
 
 
 def center_coefficients(dct_coefficients: np.ndarray) -> np.ndarray:
     """Returns a tensor where the coefficients have been switched so the origin is in the middle."""
     # YOUR CODE HERE:
     #   ...
-    sh = dct_coefficients.shape
-    shifted_dct_coefficients = np.zeros_like(dct_coefficients)
-    shifted_dct_coefficients[:sh[0]//2, :sh[1]//2] = dct_coefficients[sh[0]//2:, sh[1]//2:]
-    shifted_dct_coefficients[sh[0]//2:, :sh[1]//2] = dct_coefficients[:sh[0]//2, sh[1]//2:]
-    shifted_dct_coefficients[:sh[0]//2, sh[1]//2:] = dct_coefficients[sh[0]//2:, :sh[1]//2]
-    shifted_dct_coefficients[sh[0]//2:, sh[1]//2:] = dct_coefficients[:sh[0]//2, :sh[1]//2]
-    return shifted_dct_coefficients
 
 
 if __name__ == "__main__":

@@ -12,9 +12,8 @@ def gaussian_pyramid(img: np.ndarray, levels: int) -> tp.List[np.ndarray]:
     # YOUR CODE HERE:
     #   See `cv.pyrDown(...)`
     #   ...
-    pyramid = [img]
-    for _ in range(levels-1):
-        pyramid.append(cv2.pyrDown(pyramid[-1]))
+    pyramid = []
+
     return pyramid
 
 
@@ -23,11 +22,8 @@ def laplacian_pyramid(img: np.ndarray, levels: int) -> tp.List[np.ndarray]:
     # YOUR CODE HERE:
     #   See `cv.pyrDown(...)` and `cv.pyrUp(...)`
     #   ...
-    g_pyramid = gaussian_pyramid(img, levels)
     l_pyramid = []
-    for idx in range(levels-1):
-        l_pyramid.append(g_pyramid[idx] - cv2.pyrUp(g_pyramid[idx+1]))
-    l_pyramid.append(g_pyramid[-1])
+
     return l_pyramid
 
 
@@ -36,19 +32,13 @@ def reconstruct_from_laplacian_pyramid(l_pyramid: tp.List[np.ndarray]) -> np.nda
     # YOUR CODE HERE:
     #   See `cv.pyrUp(...)`, and start from the smallest layer.
     #   ...
-    img = l_pyramid[-1]
-    for level in range(len(l_pyramid)-2, -1, -1):
-        img = cv2.pyrUp(img) + l_pyramid[level]
-    return img
 
 
 def remove_finer_detail(img: np.ndarray) -> np.ndarray:
     """Removes the finer details of the image by applying a Laplacian pyramid."""
-    original_img = cv2.imread(sample_filepath('airplane.tiff'), cv2.IMREAD_GRAYSCALE).astype('float32')
-    l_pyramid = laplacian_pyramid(original_img, levels=6)
-    l_pyramid[0] = np.zeros_like(l_pyramid[0])
-    l_pyramid[1] = np.zeros_like(l_pyramid[1])
-    return reconstruct_from_laplacian_pyramid(l_pyramid)
+    # YOUR CODE HERE:
+    #   Reuse `laplacian_pyramid(...)` and `reconstruct_from_laplacian_pyramid(...)`.
+    #   ...
 
 
 if __name__ == "__main__":

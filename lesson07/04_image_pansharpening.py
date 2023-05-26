@@ -8,7 +8,7 @@ from utils import sample_filepath
 def pansharpen_mean(panchromatic_img: np.ndarray, r_image: np.ndarray, g_image: np.ndarray, b_image: np.ndarray) -> np.ndarray:
     """ Return RGB pansharpened image using the "simple mean" method. """
     # YOUR CODE HERE:
-    #   See cv2.resize(...)
+    #   See `cv2.resize(...)`.
     #   ...
     # Upsize images
     r_in = cv2.resize(r_image, (panchromatic_img.shape[1], panchromatic_img.shape[0]))

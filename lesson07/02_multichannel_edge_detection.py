@@ -9,7 +9,7 @@ def process_on_best_channel(img_bgr: np.ndarray) -> np.ndarray:
     """ Apply a Canny edge detector on the `best` channel. """
     best_channel = img_bgr[:, :, 1]  # Why 1?
     # YOUR CODE HERE:
-    #   See cv2.Canny(...)
+    #   Remember `cv2.Canny(...)`.
     #   ...
     return cv2.Canny(best_channel, 100, 200)
 
@@ -35,7 +35,7 @@ def parallel_channels_then_combine(img_bgr: np.ndarray) -> np.ndarray:
 
 
 if __name__ == "__main__":
-    img_bgr = cv2.imread(sample_filepath('samples/peppers.tiff'), cv2.IMREAD_COLOR)
+    img_bgr = cv2.imread(sample_filepath('peppers.tiff'), cv2.IMREAD_COLOR)
 
     results = {
         'original': img_bgr,

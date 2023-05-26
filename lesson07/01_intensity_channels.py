@@ -44,7 +44,7 @@ def lightness_from_cielab(img_bgr: np.ndarray) -> np.ndarray:
     # YOUR CODE HERE
     #   ...
     img_hsl = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2Lab)
-        return img_hsl[:, :, 0]
+    return img_hsl[:, :, 0]
 
 
 if __name__ == "__main__":

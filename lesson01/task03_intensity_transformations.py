@@ -1,10 +1,9 @@
-import unittest
-
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
 from lesson01 import task02_histogram as task02
+from utils import sample_filepath
 
 
 def negative(image: np.ndarray) -> np.ndarray:
@@ -74,9 +73,6 @@ def clahe(image: np.ndarray, clip_limit=5.0, grid_size=(4, 4)) -> np.ndarray:
 
 
 if __name__ == '__main__':
-    # Execute tests for task03.
-    test = unittest.main(module='test', defaultTest='TestLesson01Task03', exit=False)
-
     # Show effect on moon image.
     img = cv2.imread(sample_filepath('moon.jpg'), cv2.IMREAD_GRAYSCALE)  # Read the image.
     img = img.astype('float32')  # Convert to float32 to avoid overflow and rounding errors

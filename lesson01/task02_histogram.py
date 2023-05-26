@@ -1,7 +1,5 @@
-import unittest
-
-import numpy as np
 import cv2
+import numpy as np
 from matplotlib import pyplot as plt
 
 from utils import sample_filepath

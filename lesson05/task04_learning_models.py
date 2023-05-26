@@ -14,11 +14,11 @@ def train_and_test_model():
     # Get features
     # YOUR CODE HERE:
     #   Initialize the features (X) as one of the following (which is better?):
-    #   X = features_gabor_filter_bank(img), or
-    #   X = features_eigenvalues_hessian(img), or
-    #   X = features_hog(img), orX = np.concatenate([features_gabor_filter_bank(img), features_eigenvalues_hessian(img)], axis=1)
+    #   >> X = features_gabor_filter_bank(img), or
+    #   >> X = features_eigenvalues_hessian(img), or
+    #   >> X = features_hog(img), orX = np.concatenate([features_gabor_filter_bank(img), features_eigenvalues_hessian(img)], axis=1)
     #   ...
-    X = np.zeros((img.shape[0]*img.shape[1], 1))  # Features initialized as a single 0-vector (delete this line)
+    X = features_eigenvalues_hessian(img)
 
     # Get labels
     y = mask.flatten()/255
@@ -26,8 +26,8 @@ def train_and_test_model():
     # Create model
     # YOUR CODE HERE:
     #   Select a model from sklearn, e.g.:
-    #   model = LogisticRegression(), or
-    #   model = RandomForestClassifier().
+    #   >> model = LogisticRegression(), or
+    #   >> model = RandomForestClassifier().
     #   ...
     model = LogisticRegression()
 
@@ -46,7 +46,6 @@ def train_and_test_model():
     # YOUR CODE HERE:
     #   Use `model.predict(X)` to train the model.
     #   ...
-    predictions = np.zeros_like(y)  # Initialize predictions as a 0-vector (delete this line).
     predictions = model.predict(X).reshape(img.shape)
 
     # Plot

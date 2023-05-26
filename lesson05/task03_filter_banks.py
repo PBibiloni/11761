@@ -50,6 +50,7 @@ def kernel_laplacian_of_gaussian(sigma, filter_size=(11, 11)):
     # YOUR CODE HERE:
     #   You can use `cv2.Sobel(..., dx= , dy= , ...)` to compute second-order derivatives
     #   Remember that laplacian(f) = dx^2/d^2 f + dy^2/d^2 f
+    #   ...
     gaussian = kernel_gaussian(sigma, filter_size)
     return cv2.Sobel(gaussian, cv2.CV_64F, dx=2, dy=0) + cv2.Sobel(gaussian, cv2.CV_64F, dx=0, dy=2)
 

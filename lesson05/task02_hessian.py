@@ -12,11 +12,6 @@ def hessian_matrix(img_grayscale: np.ndarray) -> tp.Tuple[np.ndarray, np.ndarray
     # YOUR CODE HERE:
     #   Use `cv2.Sobel(..., dx= , dy= , ...)` to compute second-order derivatives
     #   ...
-    hessian_dxdx = cv2.Sobel(img_grayscale, cv2.CV_32F, 2, 0, ksize=3)
-    hessian_dxdy = cv2.Sobel(img_grayscale, cv2.CV_32F, 1, 1, ksize=3)
-    hessian_dydx = hessian_dxdy
-    hessian_dydy = cv2.Sobel(img_grayscale, cv2.CV_32F, 0, 2, ksize=3)
-    return hessian_dxdx, hessian_dxdy, hessian_dydx, hessian_dydy
 
 
 def hessian_eigenvalues(img_grayscale: np.ndarray) -> tp.Tuple[np.ndarray, np.ndarray]:
@@ -24,32 +19,14 @@ def hessian_eigenvalues(img_grayscale: np.ndarray) -> tp.Tuple[np.ndarray, np.nd
     # YOUR CODE HERE:
     #   Remember that eigenvalues are solutions of `x^2 - trace * x + det = 0`
     #   ...
-    hessian_dxdx, hessian_dxdy, hessian_dydx, hessian_dydy = hessian_matrix(img_grayscale)
-    hessian_det = hessian_dxdx * hessian_dydy - hessian_dxdy * hessian_dydx
-    hessian_trace = hessian_dxdx + hessian_dydy
-    # Solve `x^2 - trace * x + det = 0`
-    hessian_eigenvalue_1 = 0.5 * (hessian_trace + np.sqrt(hessian_trace**2 - 4 * hessian_det))
-    hessian_eigenvalue_2 = 0.5 * (hessian_trace - np.sqrt(hessian_trace**2 - 4 * hessian_det))
-    # Order eigenvalues (for every pixel)
-    hessian_eigenvalue_1, hessian_eigenvalue_2 = np.max([hessian_eigenvalue_1, hessian_eigenvalue_2], axis=0), np.min([hessian_eigenvalue_1, hessian_eigenvalue_2], axis=0)
-    return hessian_eigenvalue_1, hessian_eigenvalue_2
 
 
 def cylinders(img_grayscale: np.ndarray) -> np.ndarray:
     """Returns the pixels of the image that correspond to dark cylinder-like structure."""
     cylinders = np.zeros_like(img_grayscale)
     # YOUR CODE HERE:
-    #   Remember that eigenvalues are solutions of `x^2 - trace * x + det = 0`
+    #   Use the eigenvalues of the Hessian to characterize thin structures.
     #   ...
-    eig_1, eig_2 = hessian_eigenvalues(img_grayscale)
-    # Ensure they are ordered
-    eig_1, eig_2 = np.max([eig_1, eig_2], axis=0), np.min([eig_1, eig_2], axis=0)
-    # One eigenvalue should be large and positive, the other should be small in absolute value.
-    threshold_high = 30
-    threshold_flat_region = 10
-    cylinders[(eig_1 > threshold_high) & (-threshold_flat_region < eig_2) & (eig_2 < threshold_flat_region)] = 255
-    # Return value for visualization, whose pixels should be either 0 o 255.
-    return cylinders
 
 
 if __name__ == "__main__":

@@ -14,9 +14,9 @@ def train_and_test_model():
     # Get features
     # YOUR CODE HERE:
     #   Initialize the features (X) as one of the following (which is better?):
-    #   X = features_gabor_filter_bank(img), or
-    #   X = features_eigenvalues_hessian(img), or
-    #   X = features_hog(img), orX = np.concatenate([features_gabor_filter_bank(img), features_eigenvalues_hessian(img)], axis=1)
+    #   >> X = features_gabor_filter_bank(img), or
+    #   >> X = features_eigenvalues_hessian(img), or
+    #   >> X = features_hog(img), orX = np.concatenate([features_gabor_filter_bank(img), features_eigenvalues_hessian(img)], axis=1)
     #   ...
     X = np.zeros((img.shape[0]*img.shape[1], 1))  # Features initialized as a single 0-vector (delete this line)
 
@@ -26,8 +26,8 @@ def train_and_test_model():
     # Create model
     # YOUR CODE HERE:
     #   Select a model from sklearn, e.g.:
-    #   model = LogisticRegression(), or
-    #   model = RandomForestClassifier().
+    #   >> model = LogisticRegression(), or
+    #   >> model = RandomForestClassifier().
     #   ...
     model = LogisticRegression()
 
@@ -40,14 +40,12 @@ def train_and_test_model():
     # YOUR CODE HERE:
     #   Use `model.fit(X, y)` to train the model.
     #   ...
-    model.fit(X_train, y_train)
 
     # Make predictions
     # YOUR CODE HERE:
     #   Use `model.predict(X)` to train the model.
     #   ...
     predictions = np.zeros_like(y)  # Initialize predictions as a 0-vector (delete this line).
-    predictions = model.predict(X).reshape(img.shape)
 
     # Plot
     #   Arrange tensor for better visualizations
@@ -85,19 +83,6 @@ def features_eigenvalues_hessian(img):
     """Computes features based on the eigenvalues of the Hessian matrix."""
     # YOUR CODE HERE:
     #   ...
-    hessian_dxdx = cv2.Sobel(img, cv2.CV_32F, 2, 0, ksize=3)
-    hessian_dxdy = cv2.Sobel(img, cv2.CV_32F, 1, 1, ksize=3)
-    hessian_dydx = hessian_dxdy
-    hessian_dydy = cv2.Sobel(img, cv2.CV_32F, 0, 2, ksize=3)
-
-    hessian_det = hessian_dxdx * hessian_dydy - hessian_dxdy * hessian_dydx
-    hessian_trace = hessian_dxdx + hessian_dydy
-    # Solve `x^2 - trace * x + det = 0`
-    hessian_eigenvalue_1 = 0.5 * (hessian_trace + np.sqrt(hessian_trace**2 - 4 * hessian_det))
-    hessian_eigenvalue_2 = 0.5 * (hessian_trace - np.sqrt(hessian_trace**2 - 4 * hessian_det))
-
-    X = np.stack([hessian_det.flatten(), hessian_trace.flatten(), hessian_eigenvalue_1.flatten(), hessian_eigenvalue_2.flatten()], axis=-1)
-    return X
 
 
 if __name__ == '__main__':

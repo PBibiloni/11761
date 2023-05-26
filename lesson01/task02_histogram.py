@@ -10,7 +10,6 @@ def histogram_find_cuts(nbins: int) -> np.ndarray:
     # YOUR CODE HERE:
     #   See `np.linspace(...)` and `np.arange(...)`.
     #   ...
-    return np.arange(nbins + 1) * 255 / nbins
 
 
 def histogram_count_values(image: np.ndarray, nbins: int) -> np.ndarray:
@@ -23,24 +22,15 @@ def histogram_count_values(image: np.ndarray, nbins: int) -> np.ndarray:
             value = image[i, j]
             # YOUR CODE HERE:
             #   ...
-            discretized_value = int(value * nbins / 255)
-            hist[discretized_value] += 1
+
     return hist
 
 
 def histogram_plot(image: np.ndarray, nbins) -> None:
     """Plots a histogram of a grayscale image."""
     # YOUR CODE HERE:
-    #   Use a bar plot `plt.bar(...)`.
+    #   Use a bar plot `plt.bar(...)`, and show it `plt.show(...)`.
     #   ...
-    cuts = histogram_find_cuts(nbins=nbins)
-    values = histogram_count_values(image, nbins=nbins)
-
-    centers = (cuts[:-1] + cuts[1:]) / 2
-    plt.bar(centers, values, align='center', width=cuts[1]-cuts[0])
-    if len(cuts) <= 30:
-        plt.xticks(cuts)
-    plt.show()
 
 
 if __name__ == '__main__':

@@ -55,6 +55,7 @@ while cap.isOpened():
             break
     else:
         break
+cap.release()
 
 # YOUR CODE HERE:
 #   If available, load video from webcam, and display it using OpenCV
@@ -69,3 +70,4 @@ while cap.isOpened():
             break
     else:
         break
+cap.release()

@@ -16,9 +16,8 @@ def convolution(image: np.ndarray, kernel: np.ndarray) -> np.ndarray:
         for j in range(out_sz_y):
             # YOUR CODE HERE:
             #   ...
-            for k in range(krn_sz_x):
-                for l in range(krn_sz_y):
-                    out[i, j] += image[i + (krn_sz_x-1) - k, j + (krn_sz_y-1) - l] * kernel[k, l]
+            pass
+
     return out
 
 

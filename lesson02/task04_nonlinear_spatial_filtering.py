@@ -18,8 +18,8 @@ def median_filter(image: np.ndarray, filter_size: Tuple[int, int]) -> np.ndarray
             # YOUR CODE HERE:
             #   See `np.median(...)`.
             #   ...
-            values = image[i:i + (filter_size[0]-1), j:j + (filter_size[1]-1)]
-            out[i, j] = np.median(values)
+            pass
+
     return out
 
 
@@ -34,8 +34,8 @@ def max_pooling(image: np.ndarray, pool_size: Tuple[int, int]) -> np.ndarray:
             # YOUR CODE HERE:
             #   See `np.max(...)`.
             #   ...
-            values = image[i*pool_size[0]:(i+1)*pool_size[0], j*pool_size[1]:(j+1)*pool_size[1]]
-            out[i, j] = np.max(values)
+            pass
+
     return out
 
 

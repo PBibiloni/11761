@@ -12,17 +12,24 @@ def train_and_test_model():
     mask = cv2.imread(sample_filepath('Retinal_DRIVE21_gt.tif'), cv2.IMREAD_GRAYSCALE)
 
     # Get features
-    X = features_gabor_filter_bank(img)
-    # or X = features_eigenvalues_hessian(img)
-    # or X = np.concatenate([features_gabor_filter_bank(img), features_eigenvalues_hessian(img)], axis=1)
+    # YOUR CODE HERE:
+    #   Initialize the features (X) as one of the following (which is better?):
+    #   X = features_gabor_filter_bank(img), or
+    #   X = features_eigenvalues_hessian(img), or
+    #   X = features_hog(img), orX = np.concatenate([features_gabor_filter_bank(img), features_eigenvalues_hessian(img)], axis=1)
+    #   ...
+    X = np.zeros((img.shape[0]*img.shape[1], 1))  # Features initialized as a single 0-vector (delete this line)
 
     # Get labels
-    num_pixels = img.shape[0] * img.shape[1]
     y = mask.flatten()/255
 
     # Create model
+    # YOUR CODE HERE:
+    #   Select a model from sklearn, e.g.:
+    #   model = LogisticRegression(), or
+    #   model = RandomForestClassifier().
+    #   ...
     model = LogisticRegression()
-    # or model = RandomForestClassifier()
 
     # Train model
     random_selection_positives = np.random.choice(np.where(y == 1)[0], 5000, replace=False)
@@ -39,7 +46,7 @@ def train_and_test_model():
     # YOUR CODE HERE:
     #   Use `model.predict(X)` to train the model.
     #   ...
-    predictions = np.zeros_like(y)  # You may delete this line.
+    predictions = np.zeros_like(y)  # Initialize predictions as a 0-vector (delete this line).
     predictions = model.predict(X).reshape(img.shape)
 
     # Plot

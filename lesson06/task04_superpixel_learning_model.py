@@ -22,13 +22,13 @@ def train_and_test_model():
     region_labels = seeds.getLabels()
 
     # Get features
-    X = get_geometric_features(region_labels)
-    # or X = get_photometric_features(img_bgr, region_labels)
-    # or X = np.concatenate([get_geometric_features(region_labels), get_photometric_features(img_bgr, region_labels)], axis=1)
     # YOUR CODE HERE:
-    #   What features will work better?
+    #   Initialize the features (X) as one of the following (which is better?):
+    #   >> X = get_geometric_features(region_labels), or
+    #   >> X = get_photometric_features(img_bgr, region_labels), or
+    #   >> X = np.concatenate([get_geometric_features(region_labels), get_photometric_features(img_bgr, region_labels)], axis=1)
     #   ...
-    X = np.concatenate([get_geometric_features(region_labels)])
+    X = np.zeros((np.max(region_labels), 1))  # Features initialized as a single 0-vector (delete this line)
 
     # Get labels
     positives_per_region = []
@@ -40,8 +40,12 @@ def train_and_test_model():
     y = np.array(positives_per_region) > 0.5
 
     # Create model
+    # YOUR CODE HERE:
+    #   Select a model from sklearn, e.g.:
+    #   >> model = LogisticRegression(), or
+    #   >> model = RandomForestClassifier().
+    #   ...
     model = LogisticRegression()
-    # or model = RandomForestClassifier()
 
     # Train model
     # YOUR CODE HERE:
@@ -50,10 +54,10 @@ def train_and_test_model():
     model.fit(X, y)
 
     # Make predictions
-    predictions = np.zeros(img_bgr.shape[0:2])  # You may delete this line
     # YOUR CODE HERE:
     #   Use `model.predict(X)` to train the model.
     #   ...
+    predictions = np.zeros(img_bgr.shape[0:2])  # Initialize predictions as a 0-vector (delete this line).
     predictions_per_region = model.predict(X)
     predictions = predictions_per_region[region_labels]
 

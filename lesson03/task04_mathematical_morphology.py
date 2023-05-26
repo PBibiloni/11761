@@ -40,14 +40,14 @@ def closing(img: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
 
 def morphological_gradient(img: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
     """Returns the morphological gradient of the binary/grayscale image with the given structuring element."""
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     return dilation(img, structuring_element) - erosion(img, structuring_element)
 
 
 def morphological_skeleton(img: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
     """Returns the morphological skeleton of the binary/grayscale image considering Lantuéjoul's method."""
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     # Iteratively erode the image (until there are no more pixels)
     eroded_imgs = []

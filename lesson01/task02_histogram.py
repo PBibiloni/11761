@@ -21,7 +21,7 @@ def histogram_count_values(image: np.ndarray, nbins: int) -> np.ndarray:
     for i in range(size_x):
         for j in range(size_y):
             value = image[i, j]
-            # YOUR CODE HERE
+            # YOUR CODE HERE:
             #   ...
             discretized_value = int(value * nbins / 255)
             hist[discretized_value] += 1

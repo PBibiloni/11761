@@ -7,7 +7,7 @@ from utils import sample_filepath
 
 def intensity(img_bgr: np.ndarray) -> np.ndarray:
     """ Compute the intensity of an image. """
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     img_bgr = img_bgr.astype('float')
     img_gray = (img_bgr[:, :, 0] + img_bgr[:, :, 1] + img_bgr[:, :, 2]) / 3
@@ -16,7 +16,7 @@ def intensity(img_bgr: np.ndarray) -> np.ndarray:
 
 def luma(img_bgr: np.ndarray) -> np.ndarray:
     """ Compute the intensity of an image. """
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     img_bgr = img_bgr.astype('float')
     img_gray = 0.2126*img_bgr[:, :, 2] + 0.7152*img_bgr[:, :, 1] + 0.0722*img_bgr[:, :, 0]
@@ -25,7 +25,7 @@ def luma(img_bgr: np.ndarray) -> np.ndarray:
 
 def value(img_bgr: np.ndarray) -> np.ndarray:
     """ Compute the intensity of an image. """
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     img_hsv = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2HSV)
     return img_hsv[:, :, 2]
@@ -33,7 +33,7 @@ def value(img_bgr: np.ndarray) -> np.ndarray:
 
 def lightness_from_hsl(img_bgr: np.ndarray) -> np.ndarray:
     """ Compute the intensity of an image. """
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     img_hls = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2HLS)
     return img_hls[:, :, 1]
@@ -41,7 +41,7 @@ def lightness_from_hsl(img_bgr: np.ndarray) -> np.ndarray:
 
 def lightness_from_cielab(img_bgr: np.ndarray) -> np.ndarray:
     """ Compute the intensity of an image. """
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     img_hsl = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2Lab)
     return img_hsl[:, :, 0]

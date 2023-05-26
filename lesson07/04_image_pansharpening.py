@@ -24,7 +24,7 @@ def pansharpen_mean(panchromatic_img: np.ndarray, r_image: np.ndarray, g_image: 
 
 def panshapen_Brovey(panchromatic_img: np.ndarray, r_image: np.ndarray, g_image: np.ndarray, b_image: np.ndarray) -> np.ndarray:
     """ Return RGB pansharpened image using the Brovey method. """
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     # Upsize images
     r_in = cv2.resize(r_image, (panchromatic_img.shape[1], panchromatic_img.shape[0])).astype('float')

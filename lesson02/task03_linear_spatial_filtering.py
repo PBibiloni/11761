@@ -43,7 +43,7 @@ def kernel_sharpening(kernel_smoothing: np.ndarray, alpha: float) -> np.ndarray:
 
 def kernel_horizontal_derivative() -> np.ndarray:
     """Returns a 3x1 kernel for the horizontal derivative using first order central difference coefficients. """
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     return np.array([[1/2, 0, -1/2]])
 
@@ -58,7 +58,7 @@ def kernel_vertical_derivative() -> np.ndarray:
 
 def kernel_sobel_horizontal() -> np.ndarray:
     """Returns the sobel operator for horizontal derivatives. """
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     sobel = np.array([[1, 0, -1], [2, 0, -2], [1, 0, -1]], dtype=float)/8
     return sobel
@@ -74,7 +74,7 @@ def kernel_sobel_vertical() -> np.ndarray:
 
 def kernel_LoG_filter() -> np.ndarray:
     """Returns a 3x3 kernel for the Laplacian of Gaussian filter."""
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     log = np.array([[0, 1, 0], [1, -4, 1], [0, 1, 0]], dtype=float)
     return log

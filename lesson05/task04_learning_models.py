@@ -83,7 +83,7 @@ def features_gabor_filter_bank(img):
 
 def features_eigenvalues_hessian(img):
     """Computes features based on the eigenvalues of the Hessian matrix."""
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     hessian_dxdx = cv2.Sobel(img, cv2.CV_32F, 2, 0, ksize=3)
     hessian_dxdy = cv2.Sobel(img, cv2.CV_32F, 1, 1, ksize=3)

@@ -16,28 +16,28 @@ def negative(image: np.ndarray) -> np.ndarray:
 
 def log_transform(image: np.ndarray) -> np.ndarray:
     """Returns the log transformation of a grayscale image."""
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     return np.log(image+1)/np.log(256) * 255
 
 
 def exp_transform(image: np.ndarray) -> np.ndarray:
     """Returns the exp transformation of a grayscale image, which should invert the log transformation."""
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     return np.exp(image/255*np.log(256))-1
 
 
 def gamma_transform(image: np.ndarray, gamma: float) -> np.ndarray:
     """Returns the gamma transformation of a grayscale image."""
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     return np.power(image/255, gamma)*255
 
 
 def windowing(image: np.ndarray, lower_threshold: float, upper_threshold: float) -> np.ndarray:
     """Linear normalization assigning values lower or equal to lower_threshold to 0, and values greater or equal to upper_threshold to 255."""
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     out = (image - lower_threshold) / (upper_threshold - lower_threshold)
     out[out < 0] = 0
@@ -47,14 +47,14 @@ def windowing(image: np.ndarray, lower_threshold: float, upper_threshold: float)
 
 def minmax_normalization(image: np.ndarray) -> np.ndarray:
     """Linear normalization assigning the lowest value to 0 and the highest value to 255."""
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     return windowing(image, np.min(image), np.max(image))
 
 
 def histogram_equalization(image: np.ndarray) -> np.ndarray:
     """Histogram equalization."""
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     hist = task02.histogram_count_values(image, nbins=256)
     cumhist = np.cumsum(hist)

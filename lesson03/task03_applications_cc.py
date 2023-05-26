@@ -40,7 +40,7 @@ def object_centroid(binary_img: np.ndarray) -> tp.Tuple[float, float]:
     # We will iterate over all pixels (which is simple but very slow... it could be improved by vectorizing the operation)
     for x in range(binary_img.shape[0]):
         for y in range(binary_img.shape[1]):
-            # YOUR CODE HERE
+            # YOUR CODE HERE:
             #   ...
             centroid_x += x * binary_img[x, y]
             centroid_y += y * binary_img[x, y]

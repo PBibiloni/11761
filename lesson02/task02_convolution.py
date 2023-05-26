@@ -14,7 +14,7 @@ def convolution(image: np.ndarray, kernel: np.ndarray) -> np.ndarray:
     out = np.zeros(shape=(out_sz_x, out_sz_y), dtype=image.dtype)
     for i in range(out_sz_x):
         for j in range(out_sz_y):
-            # YOUR CODE HERE
+            # YOUR CODE HERE:
             #   ...
             for k in range(krn_sz_x):
                 for l in range(krn_sz_y):

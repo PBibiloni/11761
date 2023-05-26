@@ -23,7 +23,7 @@ def invert_discrete_consinus_transform(img: np.ndarray) -> np.ndarray:
 
 def remove_last_coefficients(dct_coefficients: np.ndarray, remove_since_x: int, remove_since_y: int) -> np.ndarray:
     """Returns the dct coefficients of the image."""
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     removed_dct_coefficients = np.copy(dct_coefficients)
     removed_dct_coefficients[remove_since_x:, :] = 0
@@ -33,7 +33,7 @@ def remove_last_coefficients(dct_coefficients: np.ndarray, remove_since_x: int, 
 
 def center_coefficients(dct_coefficients: np.ndarray) -> np.ndarray:
     """Returns a tensor where the coefficients have been switched so the origin is in the middle."""
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     sh = dct_coefficients.shape
     shifted_dct_coefficients = np.zeros_like(dct_coefficients)

@@ -7,7 +7,7 @@ from utils import sample_filepath
 
 def binarize_by_thresholding(img: np.ndarray, threshold: float) -> np.ndarray:
     """Returns a binary version of the image by applying a thresholding operation."""
-    # YOUR CODE HERE
+    # YOUR CODE HERE:
     #   ...
     return (img >= threshold)*255
 

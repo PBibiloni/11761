@@ -66,7 +66,7 @@ def clahe(image: np.ndarray, clip_limit=5.0, grid_size=(4, 4)) -> np.ndarray:
     """Contrast-limited adaptive histogram equalization."""
     image = image.astype('uint8')   # Ensure that the image is of type uint8
     # YOUR CODE HERE:
-    #   Look up in the opencv documentation the function cv2.createCLAHE.
+    #   See `cv2.createCLAHE(...)`.
     #   ...
     clahe = cv2.createCLAHE(clipLimit=clip_limit, tileGridSize=grid_size)
     return clahe.apply(image)

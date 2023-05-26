@@ -21,32 +21,14 @@ def region_growing_segmentation(img_gray: np.ndarray, seed_pixel: tp.Tuple[int, 
         # YOUR CODE HERE:
         #   Add the pixel to the segmentation
         #   ...
-        segmentation[pixel] = 1
 
         # YOUR CODE HERE:
         #   Add [some of] its neighbours to the list of current pixels
         #   ...
-        candidates = [(pixel[0] + 1, pixel[1]), (pixel[0] - 1, pixel[1]), (pixel[0], pixel[1] + 1), (pixel[0], pixel[1] - 1)]
-        # Filter out pixels that are out of bounds
-        candidates = [c for c in candidates
-                      if 0 <= c[0] < img_gray.shape[0] and 0 <= c[1] < img_gray.shape[1]]
-        # Filter out pixels that are already in the segmentation
-        candidates = [c for c in candidates
-                      if segmentation[c] == 0]
-        # Filter out pixels that are too white
-        candidates = [c for c in candidates
-                      if img_gray[c] < 150]
-        # Filter out pixels that are too different
-        candidates = [c for c in candidates if
-                      np.abs(img_gray[c] - img_gray[pixel]) < 50]
-        # Add neighbours to the list of pixels to process
-        pixels_to_process = candidates + pixels_to_process
 
         # YOUR CODE HERE:
         #   Check for an ending condition
         #   ...
-        if np.sum(segmentation) > 0.1 * img_gray.size:
-            break
 
     return segmentation
 

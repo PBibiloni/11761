@@ -41,8 +41,6 @@ def contour_based_segmentation(img_gray: np.ndarray, seed_pixel: tp.Tuple[int, i
     # YOUR CODE HERE:
     #   See `cv2.Canny(...)` and `cv2.findContours(...)`.
     #   ...
-    img_edges = cv2.Canny(img_gray, threshold1=100, threshold2=200, apertureSize=3)
-    contours, hierarchy = cv2.findContours(img_edges, mode=cv2.RETR_EXTERNAL, method=cv2.CHAIN_APPROX_SIMPLE)
 
     # Select only the contour containing the seed point
     for contour in contours:
@@ -50,12 +48,7 @@ def contour_based_segmentation(img_gray: np.ndarray, seed_pixel: tp.Tuple[int, i
         # YOUR CODE HERE:
         #   Draw the contour and its interior on the mask (see `cv2.drawContours(...)`)
         #   ...
-        region_mask = cv2.drawContours(region_mask, [contour], contourIdx=-1, color=255, thickness=-1)  # Draw Interior
-        region_mask = cv2.dilate(region_mask, kernel=np.ones((3, 3)))   # Add border too
-        if region_mask[seed_pixel]:
-            return region_mask
-
-    return np.zeros_like(img_gray)
+        pass
 
 
 if __name__ == "__main__":

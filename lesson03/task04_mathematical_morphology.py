@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 import lesson03.task01_binarize as task01
+from utils import sample_filepath
 
 
 def dilation(img: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:

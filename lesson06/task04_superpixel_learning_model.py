@@ -57,7 +57,6 @@ def train_and_test_model():
     # YOUR CODE HERE:
     #   Use `model.predict(X)` to train the model.
     #   ...
-    predictions = np.zeros(img_bgr.shape[0:2])  # Initialize predictions as a 0-vector (delete this line).
     predictions_per_region = model.predict(X)
     predictions = predictions_per_region[region_labels]
 

@@ -23,7 +23,6 @@ def hessian_eigenvalues(img_grayscale: np.ndarray) -> tp.Tuple[np.ndarray, np.nd
 
 def cylinders(img_grayscale: np.ndarray) -> np.ndarray:
     """Returns the pixels of the image that correspond to dark cylinder-like structure."""
-    cylinders = np.zeros_like(img_grayscale)
     # YOUR CODE HERE:
     #   Use the eigenvalues of the Hessian to characterize thin structures.
     #   ...
